@@ -14,12 +14,13 @@
 
 # Vykonaná práca:
 - upravená verzia specifikácie (commit 2)
-- dev enviroment set up bol dokončený
+- dev enviroment set up nebol dokončený, npm príkaz končí chybou
 - 
 
 # Zdôvodnenie rozdielov medzi plánom a vykonanou prácou:
 
 # Plán na ďalší týždeň:
+- try to fix problem with dev enviroment
 - set up SQL database
 - basic html
 - implement functionality to create projects and tasks
