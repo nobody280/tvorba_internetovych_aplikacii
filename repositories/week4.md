@@ -27,7 +27,7 @@
 - set up CRUD operations for projects and tasks
 
 # Problémy:
-Neboli žiadne problémy.
+npm príkaz z prezentácie končí chybou - možno problém s mobaxterm.
 
 # Zmeny v špecifikácii:
 Zmeny v špecifikácií na základe spätnej väzby.
