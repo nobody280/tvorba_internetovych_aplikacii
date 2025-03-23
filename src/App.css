@@ -16,6 +16,7 @@ nav {
 
 button {
   background-color: gray;
+  width: 100%;
 }
 
 button:hover {
@@ -38,6 +39,14 @@ h2 {
   width: 100%;
   height: 10%;
   background-color: aqua;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.month button {
+  background-color: rgba(0, 0, 0, 0);
+  width: 5%;
 }
 
 .monthbox {
@@ -53,6 +62,21 @@ h2 {
 .daybox {
   border: 1px solid aqua;
   background-color: whitesmoke;
+}
+
+.taskWindow {
+  position: fixed;
+  width: 15%;
+  top: 0;
+  left: 10%;
+  display: flex;
+  z-index: 2;
+  background-color: gray;
+  border: 1px solid blue;
+}
+
+.form {
+  width: auto;
 }
 
 @media (max-width: 700px) {
