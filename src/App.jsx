@@ -5,6 +5,8 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [users, setUsers] = useState([]);
   const [taskWindow, setShowTask] = useState(false);
   const [count, setCount] = useState(0)
@@ -14,12 +16,36 @@ function App() {
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const items = Array(daysInMonth).fill(null);
 
+  useEffect(() => {
+    // Fetch data from the backend
+    fetch('http://localhost:3000') 
+      .then(response => response.json()) 
+      .then(data => {
+        setData(data); // Set the fetched data
+        setLoading(false); // Set loading to false once data is fetched
+      })
+      .catch(err => {
+        setError(err); // Set error if the request fails
+        setLoading(false); // Set loading to false if there's an error
+      });
+  }, []); // Empty dependency array so this runs only once when the component mounts
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>; // Display the error message
+  }
   
 
   const addTask = () => {
     setShowTask(!taskWindow);
-    console.log("ADD TASK"); 
-  }; 
+  };
+  
+  const addProject = () => {
+    setShowTask(!taskWindow);
+  };
 
   const oneMore = () => {
     if (month === 11) {
@@ -43,11 +69,11 @@ function App() {
     <>
       <nav>
         <button type='button' onClick={addTask}>New Task</button>
-        <button type='button' onClick={addTask}>New Project</button>
+        <button type='button' onClick={addProject}>New Project</button>
       </ nav>
 
       {taskWindow && (
-        <div class = "taskWindow">
+        <div className = "taskWindow">
           <h3>Task Info:</h3>
           <div class = "form">
             <input type="text" id="name" name="name" placeholder="Task name" />
@@ -59,14 +85,14 @@ function App() {
         </div>
       )}
 
-      <div class="calendar">
-        <div class = "month">
+      <div className="calendar">
+        <div className = "month">
           <button type='button' onClick={oneLess}>&laquo;</button><h2>
             {new Date(year, month).toLocaleString("default", { month: "long" })} {year}</h2>
           <button type='button' onClick={oneMore}>&raquo;</button></div>
-        <div class = "monthbox">
+        <div className = "monthbox">
           {items.map((_, index) => (
-            <div class="daybox">
+            <div className="daybox">
               {index + 1}.
             </div>
           ))}
