@@ -66,7 +66,7 @@ function App() {
     <>
       <nav>
       {users.map(user => (
-          <div>{user.name}</div>
+          <div>{user.first_name} {user.last_name}</div>
         ))}
         <button type="button" onClick={addTask}>New Task</button>
         <button type="button" onClick={addProject}>New Project</button>
