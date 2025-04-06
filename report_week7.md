@@ -14,11 +14,16 @@
 - set up permitions for tasks and projects
 
 # Vykonaná práca:
-- prerobenie backendu, kvôli problémom s end-to-end (commit 33)
-- conect be - fe ()
+- prerobenie backendu, kvôli problémom s end-to-end funkcionalitou (12e19b0)
+- conect be - fe (d75fdaa)
+- conect be - db (062b77b)
 
 # Zdôvodnenie rozdielov medzi plánom a vykonanou prácou:
-
+zdržanie z minulého týždňa.
 
 # Plán na ďalší týždeň:
-- 
+- set up CRUD operations for projects and tasks
+- user registration, login andlogout functionality, password hashing and storage
+- set up permitions for tasks and projects
+- fix bugs, refine features
+- implement any remaining features as mock
