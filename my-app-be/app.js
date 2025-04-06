@@ -16,7 +16,7 @@ app.use(cookieParser());
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/api/', indexRouter);
+app.use('/api/users', usersRouter);
 
 export default app;

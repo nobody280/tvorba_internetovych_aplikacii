@@ -9,7 +9,7 @@ function App() {
   const [error, setError] = useState(null);
   const [users, setUsers] = useState([]);
   const [taskWindow, setShowTask] = useState(false);
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
   const [month, setMonth] = useState(new Date().getMonth());
   const [year, setYear] = useState(new Date().getFullYear()); 
   const today = new Date();
@@ -17,40 +17,23 @@ function App() {
   const items = Array(daysInMonth).fill(null);
 
   useEffect(() => {
-    fetch('http://localhost:3000') 
-      .then(response => response.json()) 
-      .then(data => {
-        setData(data);
-        setLoading(false); 
+    axios.get('/api/users')
+      .then(response => {
+        setUsers(response.data);
+        setLoading(false);
       })
-      .catch(err => {
-        setError(err); 
-        setLoading(false); 
-  }, []); 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>; 
-  }
-  
+      .catch(error => {
+        setError(error);
+        setLoading(false);
+      });
+  }, []);
 
   const addTask = () => {
     setShowTask(!taskWindow);
   };
-  
-  const addProject = () => {
-    setShowTask(!taskWindow);
-  };
 
-  const oneMore = () => {
-    if (month === 11) {
-      setMonth(0);
-      setYear(year + 1);
-    } else {
-      setMonth(month + 1);
-    }
+  const addProject = () => {
+    // Will fix
   };
 
   const oneLess = () => {
@@ -62,42 +45,59 @@ function App() {
     }
   };
 
+  const oneMore = () => {
+    if (month === 11) {
+      setMonth(0);
+      setYear(year + 1);
+    } else {
+      setMonth(month + 1);
+    }
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
   return (
     <>
       <nav>
-        <button type='button' onClick={addTask}>New Task</button>
-        <button type='button' onClick={addProject}>New Project</button>
-      </ nav>
+      {users.map(user => (
+          <div>{user.name}</div>
+        ))}
+        <button type="button" onClick={addTask}>New Task</button>
+        <button type="button" onClick={addProject}>New Project</button>
+      </nav>
 
       {taskWindow && (
-        <div className = "taskWindow">
+        <div className="taskWindow">
           <h3>Task Info:</h3>
-          <div class = "form">
+          <div className="form">
             <input type="text" id="name" name="name" placeholder="Task name" />
-            <input type="text" id="discription" name="discription" placeholder="Discription" />
-            
+            <input type="text" id="description" name="description" placeholder="Description" />
           </div>
-          
-          
         </div>
       )}
 
       <div className="calendar">
-        <div className = "month">
-          <button type='button' onClick={oneLess}>&laquo;</button><h2>
-            {new Date(year, month).toLocaleString("default", { month: "long" })} {year}</h2>
-          <button type='button' onClick={oneMore}>&raquo;</button></div>
-        <div className = "monthbox">
+        <div className="month">
+          <button type="button" onClick={oneLess}>&laquo;</button>
+          <h2>{new Date(year, month).toLocaleString("default", { month: "long" })} {year}</h2>
+          <button type="button" onClick={oneMore}>&raquo;</button>
+        </div>
+        <div className="monthbox">
           {items.map((_, index) => (
-            <div className="daybox">
+            <div className="daybox" key={index}>
               {index + 1}.
             </div>
           ))}
         </div>
-        
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
