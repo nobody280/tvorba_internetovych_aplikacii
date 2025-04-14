@@ -66,17 +66,34 @@ h2 {
 
 .taskWindow {
   position: fixed;
-  width: 15%;
-  top: 0;
-  left: 10%;
-  display: flex;
+  width: 20%;
+  height: 100%;
+  left: 0;
   z-index: 2;
   background-color: gray;
-  border: 1px solid blue;
+}
+
+.colorbutton {
+  width: 40%;
+  padding: 5%;
+  margin: 2%;
+  background: aqua;
+}
+
+h3 {
+  width: 100%;
+  height: 5%;
+  margin-top: 0 ;
 }
 
 .form {
   width: auto;
+  display: block;
+  align-items: stretch;
+}
+
+label {
+  margin-right: 5%;
 }
 
 .login {

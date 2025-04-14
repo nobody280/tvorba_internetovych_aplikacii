@@ -5,12 +5,9 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [loading, setLoading] = useState(true);
   const [logged, setIsLogged] = useState(false);
-  const [error, setError] = useState(null);
-  const [users, setUsers] = useState([]);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('MOCK USER');
+  const [password, setPassword] = useState('12345');
   const [taskWindow, setShowTask] = useState(false);
   const [count, setCount] = useState(0);
   const [month, setMonth] = useState(new Date().getMonth());
@@ -19,25 +16,44 @@ function App() {
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const items = Array(daysInMonth).fill(null);
 
+  const [task, setTask] = useState('');
+  const [description, setDesc] = useState('');
+  const [date, setDate] = useState(today);
+  const [taskList, setTaskList] = useState([]);
+  const [error, setError] = useState(null);  
+  const [loading, setLoading] = useState(true);  
+
   useEffect(() => {
-    axios.get('/api/users')
-      .then(response => {
-        setUsers(response.data);
-        setLoading(false);
-      })
-      .catch(error => {
+    const loadTasks = async () => {
+      try {
+        const response = await axios.get('/api/tasks');
+        setTaskList(response.data);
+        setLoading(false);  
+      } catch (error) {
+        console.error(error);
         setError(error);
-        setLoading(false);
-      });
+        setLoading(false); 
+      }
+    };
+  
+    loadTasks();
   }, []);
 
   const addTask = () => {
-    setShowTask(!taskWindow);
+    setShowTask(true);
   };
 
   const addProject = () => {
     // Will fix
   };
+
+  const Hide = () => {
+    setShowTask(false);
+  }
+
+  const newTask = () => {
+    // will fix
+  }
 
   const oneLess = () => {
     if (month === 0) {
@@ -57,31 +73,40 @@ function App() {
     }
   };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
+  if (loading) {<div>Loading...</div>};
 
   if (logged) {
     return (
       <>
         <nav>
-        {users.map(user => (
-            <div>{user.first_name} {user.last_name}</div>
-          ))}
+        <div>{username}</div>
           <button type="button" onClick={addTask}>New Task</button>
           <button type="button" onClick={addProject}>New Project</button>
+
+          {taskList.map(task => (
+            <tr key={task.id}>
+              <td>{task.id}</td>
+              <td>{task.decription}</td>
+            </tr>
+          ))}
         </nav>
 
         {taskWindow && (
           <div className="taskWindow">
             <h3>Task Info:</h3>
+            <br></br>
             <div className="form">
-              <input type="text" id="name" name="name" placeholder="Task name" />
-              <input type="text" id="description" name="description" placeholder="Description" />
+              <label htmlFor="taskName">TaskName:</label>
+              <input type="text" id="name" name="name" value={task} onChange={e => setTask(e.target.value)} ></input>
+              <br></br>
+              <label htmlFor="deadline">Deadline:</label>
+              <input type="date" id="date" name="date" value={date} onChange={e => setDate(e.target.value)}></input>
+              <br></br>
+              <label htmlFor="description" value={description} onChange={e => setDesc(e.target.value)}>Description:</label>
+              <input type="text" id="description" name="description"></input>
+
+              <button className='colorbutton' onClick={newTask}>AddTask</button>
+              <button className='colorbutton' onClick={Hide}>DiscardTask</button>
             </div>
           </div>
         )}
@@ -97,6 +122,7 @@ function App() {
               <div className="daybox" key={index}>
                 {index + 1}.
               </div>
+              
             ))}
           </div>
         </div>
