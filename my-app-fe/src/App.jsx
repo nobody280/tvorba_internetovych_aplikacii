@@ -10,23 +10,25 @@ function App() {
   const [password, setPassword] = useState('password');
   const [taskWindow1, setShowTask] = useState(false);
   const [taskWindow2, setShowProject] = useState(false);
+  const [EditWindow1, setEditTask] = useState(false);
   const [count, setCount] = useState(0);
   const [month, setMonth] = useState(new Date().getMonth());
   const [year, setYear] = useState(new Date().getFullYear()); 
-  const today = new Date();
   const daysInMonth = new Date(year, month+1, 0).getDate();
   const items = Array(daysInMonth).fill(null);
 
   const [project, setProject] = useState('');
   const [task, setTask] = useState('');
+  const [state, setState] = useState('in progress');
   const [description, setDesc] = useState('');
   const [date, setDate] = useState('');
   const [taskList, setTaskList] = useState([]);
-
+  const [selectedTask, setSelectedTask] = useState('');
+  
 
   const [error, setError] = useState(null);  
   const [loading, setLoading] = useState(true);  
-
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     if (!logged) return;
@@ -57,8 +59,48 @@ function App() {
     setShowTask(true);
   };
 
+  const editTask = (t) => {
+    setEditTask(true);
+    setSelectedTask(t);
+  };
+
+  const addOneDay = (date) => {
+    const dateObj = new Date(date);
+    dateObj.setDate(dateObj.getDate() + 1); 
+    return dateObj.toISOString().slice(0, 10); 
+  };
+
+  const saveTask = async () => {
+    try {
+      removeTask();
+      if (!date && selectedTask?.deadline) {
+        
+        setDate(addOneDay(selectedTask.deadline.slice(0, 10)));
+      }
+      setEditTask(false);
+      const response = await axios.post('/api/tasks', { username, task, date, state });
+      const createdTask = response.data;
+      setTaskList(prevList => [...prevList, createdTask]);
+      setTask("");
+      setDate("");
+      setState("in progress");
+    } catch (error) {
+      console.error(error);
+      setError(error);
+    }
+  };
+
+  const removeTask = () => {
+    setMessage("Remove feature will be added later");
+  };
+
+  const Leave = () => {
+    setEditTask(false);
+  }
+
   const addProject = () => {
-    setShowProject(true);
+    setMessage("This feature will be finished in the future");
+    setShowTask(true);
   };
 
   const Hide = () => {
@@ -67,12 +109,13 @@ function App() {
 
     setTask('');
     setDate('');
+    setProject('');
   }
 
   const newTask = async ()  => {
     try {
       Hide();
-      const response = await axios.post('/api/tasks', { username, task, date });
+      const response = await axios.post('/api/tasks', { username, task, date, state });
       const createdTask = response.data;
       setTaskList(prevList => [...prevList, createdTask]);
     } catch (error) {
@@ -82,7 +125,7 @@ function App() {
   }
   
   const newProject = () => {
-    // will fix
+    setMessage("This feature will be added later");
   }
 
   const oneLess = () => {
@@ -103,6 +146,12 @@ function App() {
     }
   };
 
+  const logout = () => {
+    setIsLogged(false);
+    setUsername('USER 1');
+    setPassword('password');
+  };
+
   const tasksByDate = taskList.reduce((acc, task) => {
     const date = task.deadline.slice(0, 10);
     if (!acc[date]) acc[date] = [];
@@ -119,7 +168,15 @@ function App() {
         <div>{username}</div>
           <button type="button" onClick={addTask}>New Task</button>
           <button type="button" onClick={addProject}>New Project</button>
+          <button type="button" onClick={logout}>LogOut</button>
         </nav>
+
+        {message && (
+          <div className='message'>
+            {message}
+            <button type="colorbutton" onClick={() => setMessage('')}>Understand</button>
+          </div>
+        )}
 
         {taskWindow1 && (
           <div className="taskWindow">
@@ -170,6 +227,37 @@ function App() {
           </div>
         )}
 
+        {EditWindow1 && (
+          <div className="editWindow">
+              <h3>Edit Task:</h3>
+              <label htmlFor="taskName">TaskName:</label>
+              <input type="text" id="name" name="name" value={task} placeholder={String(selectedTask.decription)} onChange={e => setTask(e.target.value) } ></input>
+              <br></br>
+       
+              <label htmlFor="deadline">CurrentDeadline: {String( selectedTask.deadline.slice(0, 10))}</label>
+              <br></br>
+
+              <label htmlFor="deadline">NewDeadline:</label>
+              <input type="date" id="date" name="date" value={date} onChange={e => setDate(e.target.value)}></input>
+              <br></br>
+
+              <label htmlFor="state">Current State:</label>
+              <select 
+                  id="state"
+                  name="state"
+                  value={state}
+                  onChange={e => setState(e.target.value)}
+                >
+                  <option value="in progress">InProgress</option>
+                  <option value="finished">Finished</option>
+              </select>
+              <br></br>
+
+              <button className='colorbutton' onClick={saveTask}>Edit</button>
+              <button className='colorbutton' onClick={Leave}>GoBack</button>
+          </div>
+        )}
+
         <div className="calendar">
           <div className="month">
             <button type="button" onClick={oneLess}>&laquo;</button>
@@ -185,13 +273,15 @@ function App() {
                return (
                 <div className="daybox" key={index}>
                   {dayOfMonth+1}.
-                  {tasksForThisDay.length > 0 && (
-                    <ul>
-                      {tasksForThisDay.map(task => (
-                        <li key={task.task_id}>{task.decription}</li>
-                      ))}
-                    </ul>
-                  )}
+                  {tasksForThisDay.map(task => (
+                    <button
+                      className="taskbutton"
+                      onClick={() => editTask(task)}
+                      key={task.task_id}
+                    >
+                      {task.decription}
+                    </button>
+                  ))}
                 </div>
               );
             }
