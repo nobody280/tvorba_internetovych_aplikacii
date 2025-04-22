@@ -1,6 +1,8 @@
 import pg from 'pg';
+import dotenv from 'dotenv';
+
 const { Client } = pg;
-require('dotenv').config();
+dotenv.config();
 
 const client = new Client({
   user: process.env.DB_USER,
