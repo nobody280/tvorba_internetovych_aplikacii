@@ -1,5 +1,6 @@
 import pg from 'pg';
 const { Client } = pg;
+require('dotenv').config();
 
 const client = new Client({
   user: process.env.DB_USER,
@@ -7,6 +8,9 @@ const client = new Client({
   host: process.env.DB_HOST,  
   port: 5432,  
   database: process.env.DB_DATABASE,
+  ssl: {
+    rejectUnauthorized: false, 
+  }
 });
 
 client.connect()
