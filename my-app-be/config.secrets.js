@@ -7,6 +7,7 @@ const client = new Client({
     password: 'mfd8amb8fu',
     database: 'my_app',
     port: 5432,
+    ssl: false,
 });
 
 export default client;

@@ -15,20 +15,14 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/', async (req, res)  => {
-  console.log('POST request received');
+router.post('/login', async (req, res)  => {
   const { username, password } = req.body;
-
-  if (!username || !password) {
-    return res.status(400).json({ message: 'Missing username or password' });
-  }
 
   try {
     const names = username.split(' ');
     const result = await client.query('SELECT * FROM accounts JOIN users ON accounts.user_id=users.id WHERE users.first_name = $1 AND users.last_name = $2', names);
     const user = result.rows[0];
 
-    console.log(user);
     if (!user) {
       return res.status(401).json({ message: 'Invalid username ' });
     }
@@ -39,11 +33,25 @@ router.post('/', async (req, res)  => {
       return res.status(401).json({ message: 'Invalid password' });
     }
 
-    res.status(200).json({ message: 'Login successful', userId: user.id });
+    res.status(200).json({ message: 'Login successful', userId: user.id, userName: username });
 
   } catch (err) {
     console.error('Error during login:', err);
     res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+router.delete('/logout', (req, res) => {
+  if (req.session) {
+    req.session.destroy(err => {
+      if (err) {
+        console.error('Logout error:', err);
+        return res.status(500).json({ error: 'Failed to log out' });
+      }
+      return res.status(200).json({ message: 'Logout successful' });
+    });
+  } else {
+    res.status(400).json({ error: 'No session to log out' });
   }
 });
 
