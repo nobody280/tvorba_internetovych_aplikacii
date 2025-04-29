@@ -6,8 +6,12 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   try {
-    const names = req.query.username.split(' ');
-    const result = await client.query('SELECT pm.task_id, t.decription, t.state, t.deadline, t.project, pm.admin FROM tasks t JOIN projectmember pm ON pm.task_id=t.id JOIN users u ON pm.user_id=u.id WHERE u.first_name = $1 AND u.last_name = $2;', names);
+    const id = req.query.id;
+    if (!id) {
+      return res.status(400).json({ error: 'User is required' });
+    }
+    const result = await client.query('SELECT * FROM tasks t JOIN projectmember pm ON pm.task_id=t.id WHERE pm.user_id = $1;', [id]);
+    console.log(result);
     res.json(result.rows);
   } catch (err) {
     console.error('Error fetching users:', err);
