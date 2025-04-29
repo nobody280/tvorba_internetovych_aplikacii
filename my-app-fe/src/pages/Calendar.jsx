@@ -4,18 +4,10 @@ import { logout } from '../services/authService';
 import axios from 'axios';
 import '../App.css'
 
-import {
-    groupTasksByDate,
-    oneLess,
-    oneMore,
-    showTaskForm,
-    hideForms,
-    createTask
-  } from '../services/appService'
-
 function Calendar(props) {
     const navigate = useNavigate();
     const username = localStorage.getItem('username');
+    const userid = localStorage.getItem('userid');
     const [month, setMonth] = useState(new Date().getMonth());
     const [year, setYear] = useState(new Date().getFullYear()); 
     const daysInMonth = new Date(year, month+1, 0).getDate();
@@ -33,7 +25,28 @@ function Calendar(props) {
     const [taskList, setTaskList] = useState([]);
     const [selectedTask, setSelectedTask] = useState('');
   
-    
+    const [error, setError] = useState('');
+
+    useEffect(() => {
+        const fetchTasks = async () => {
+            try {
+              const response = await axios.get('/api/tasks',{ params: { id: userid }});
+              setTaskList(response.data);
+            } catch (error) {
+              console.error('Error loading tasks:', error);
+            }
+        };
+        fetchTasks();
+    }, [userid]);
+
+    const tasksByDate = (taskList) => {
+        return taskList.reduce((acc, task) => {
+          const date = task.deadline.slice(0, 10);
+          if (!acc[date]) acc[date] = [];
+          acc[date].push(task);
+          return acc;
+        }, {});
+    };
     
     const addTask = () => {
         setShowTask(true);
@@ -44,12 +57,13 @@ function Calendar(props) {
           Hide();
           const response = await axios.post('/api/tasks', { username, task, date, state });
           const createdTask = response.data;
-          setTaskList(prevList => [...prevList, createdTask]);
+          console.log(createdTask);
+          fetchTasks();
         } catch (error) {
           console.error(error);
           setError(error);
         }
-    } 
+    };
     
     const addProject = () => {};
     
@@ -60,7 +74,7 @@ function Calendar(props) {
         setTask('');
         setDate('');
         setProject('');
-      }
+    };
 
     const handleLogout = () => {
         logout()
@@ -72,8 +86,26 @@ function Calendar(props) {
         .catch((error) => {
             console.error('Logout failed:', error.message);
         });
-    }
+    };
 
+    
+    const oneLess = () => {
+        if (month === 0) {
+        setMonth(11);
+        setYear(year - 1);
+        } else {
+        setMonth(month - 1);
+        }
+    };
+    
+    const oneMore = () => {
+        if (month === 11) {
+        setMonth(0);
+        setYear(year + 1);
+        } else {
+        setMonth(month + 1);
+        }
+    };
     
     return (
         <>
@@ -100,7 +132,7 @@ function Calendar(props) {
                     <input type="text" id="name" name="name" value={task} onChange={e => setTask(e.target.value)} ></input>
                     <br></br>
                     <label htmlFor="deadline">Deadline:</label>
-                    <input type="date" id="date" name="date" value={date} onChange={e => setDate(e.target.value)}></input>
+                    <input type="date" id="date" name="date" value={date} onChange={e => setDate(e.target.value)} min={new Date().toISOString().split('T')[0]}></input>
                     <br></br>
 
                     <button type="button" className="colorbutton" onClick={newTask}>Add Task</button>
@@ -110,24 +142,30 @@ function Calendar(props) {
             )}
 
             <div className="monthbox">
-                {items.map((_, index) => {
+            {items.map((_, index) => {
                 const dayOfMonth = index;
                 const currentDate = `${year}-${String(month+1).padStart(2, '0')}-${String(dayOfMonth).padStart(2, '0')}`;
-                const tasksForThisDay = tasksByDate[currentDate] || [];
+                const groupedTasks = tasksByDate(taskList);
+                const tasksForThisDay = groupedTasks[currentDate] || [];
 
                 return (
                     <div className="daybox" key={index}>
                     {dayOfMonth+1}.
-                    
+                    <ul>
+                        {tasksForThisDay.map((task, taskIndex) => (
+                        <li key={taskIndex}>
+                         <button className="taskbutton">{task.decription}</button>
+                        </li>
+                        ))}
+                    </ul>
                     </div>
                 );
                 }
-                )}
+            )}
             </div>
         </div>
         </> 
     );
-      
 };
 
 export default Calendar;

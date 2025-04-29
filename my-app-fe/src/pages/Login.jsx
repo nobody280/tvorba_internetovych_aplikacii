@@ -17,12 +17,13 @@ function Login(props) {
       .then((response) => {
         props.setAuthStatus(true);
         localStorage.setItem('username', response.userName);
+        localStorage.setItem('userid', response.userId);
         navigate('/calendar');
     })
     .catch((error) => {
         console.log(error.message);
         props.setError(error.message);
-  });
+    });
 
   props.setError('');
     }
@@ -39,6 +40,7 @@ function Login(props) {
           .then((response) => {
               props.setAuthStatus(true);
               localStorage.setItem('username', response.userName);
+              localStorage.setItem('userid', response.userId);
               navigate('/calendar');
           })
           .catch((error) => {
