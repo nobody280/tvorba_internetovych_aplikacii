@@ -19,25 +19,18 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { username, task, date, state } = req.body;
-  const names = username.split(' ');
+  const { userid, task, date, state, priority } = req.body;
 
   if (!task || !date) {
     return res.status(400).json({ error: 'Name and Deadline are required' });
   }
 
   try {
-    const userIdResult = await client.query("SELECT * FROM users WHERE first_name = $1 AND last_name = $2;", names);
-    const userId = userIdResult.rows[0]?.id;
-    if (!userId) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-    const project = await client.query('INSERT INTO projects (name, state, final_deadline) VALUES ($1, $2, $3) RETURNING *;', [task, state, date]);
+    const project = await client.query('INSERT INTO projects (name, state, final_deadline, project_priority) VALUES ($1, $2, $3, $4) RETURNING *;', [task, state, date, priority]);
     const projectId = project.rows[0].id;
-    console.log(projectId);
     const taskResult = await client.query('INSERT INTO tasks (decription, state, deadline, project) VALUES ($1, $2, $3, $4) RETURNING *;', [task, state, date, projectId]);
     const taskId = taskResult.rows[0].id;
-    const projectmember = await client.query('INSERT INTO projectmember (user_id, admin, project_id, task_id) VALUES ($1, $2, $3, $4) RETURNING *;', [userId, true, projectId, taskId]);
+    const projectmember = await client.query('INSERT INTO projectmember (user_id, admin, project_id, task_id) VALUES ($1, $2, $3, $4) RETURNING *;', [userid, true, projectId, taskId]);
 
     const newTask = taskResult.rows[0];
     res.status(201).json(newTask);
@@ -46,6 +39,25 @@ router.post('/', async (req, res) => {
     res.status(500).json({ error: 'Error inserting task' });
   }
 });
+
+router.put('/', async (req,res) => {
+  const { taskid, decription, priority, state, date } = req.body;
+  console.log(state);
+
+  try {
+    const taskResult = await client.query('SELECT * FROM tasks WHERE tasks.id = $1;', [taskid]);
+    const updatedTask = await client.query('UPDATE tasks SET decription = $2, state = $3, deadline = $4 WHERE id = $1 RETURNING *;', [taskid, decription, state, date]);
+    const projectid = updatedTask.rows[0].project;
+
+    const updatedProject = await client.query('UPDATE projects SET name = $2, state = $3, final_deadline = $4, project_priority=$5 WHERE id = $1;', [projectid, decription, state, date, priority]);
+    
+    const newTask = taskResult.rows[0];
+    res.status(201).json(newTask);
+  } catch (error) {
+    console.error('Error inserting task:', error);
+    res.status(500).json({ error: 'Error inserting task' });
+  }
+  });
 
 router.delete('/:id', async (req, res) => {
   const taskId = req.params.id;
