@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { login, register } from '../services/authService';
+import { login } from '../services/authService';
 import '../App.css'
 
 function Login(props) {
@@ -12,23 +12,11 @@ function Login(props) {
 
     const navigate = useNavigate();
 
-    const registration = () => {
-      register()
-      .then((response) => {
-        props.setAuthStatus(true);
-        localStorage.setItem('username', response.userName);
-        localStorage.setItem('userid', response.userId);
-        navigate('/calendar');
-    })
-    .catch((error) => {
-        console.log(error.message);
-        props.setError(error.message);
-    });
+    const handleRegister = () => {
+      navigate('/register');
+    };
 
-  props.setError('');
-    }
-
-    const handleSubmit = (e) => {
+    const handleLogin = (e) => {
         e.preventDefault();
 
         if (username === '' || password === '') {
@@ -53,24 +41,22 @@ function Login(props) {
     return (
         <>
         <div className = "login">
-          <div className='month'>
-            <h2>Loggin</h2>
-          </div>
           
-          <form>
+          <form className="loginform">
             <label htmlFor="username">Username:</label>
             <input type="text" id="username" name="username" value={username} onChange={e => setUsername(e.target.value)} ></input>
             <br></br>
             <label htmlFor="password">Last name:</label>
             <input type="password" id="password" name="password" value={password} onChange={e => setPassword(e.target.value)} ></input>
             <br></br>
-            <button onClick={handleSubmit}>
+            
+          </form> 
+            <button className="logbutton" onClick={handleLogin}>
               Login
             </button>
-            <button onClick={registration}>
+            <button className="logbutton" onClick={handleRegister}>
               Register
             </button>
-          </form> 
         </div>
         </>
       );

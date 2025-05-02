@@ -30,8 +30,22 @@ function logout() {
       })
 }
 
-function register() {
-  
+function register(username, first_name, last_name, password) {
+  return fetch("/api/users/register",  {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, first_name, last_name, password }),
+    credentials: "include"
+  })
+    .then((response) => { 
+      if (!response.ok) {
+        if (response.status === 401) {
+          throw new Error("Invalid credentials"); 
+        }
+        throw new Error("Error logging in");
+      }
+      return response.json();    
+    })
 }
 
 export { login, logout, register };

@@ -23,8 +23,41 @@ button:hover {
   border: 1px solid aqua;
 }
 
+.login {
+  margin: 5% auto;
+  clear:left;
+  height:auto;
+  width: 50%;
+  height: 20%;
+  background-color: grey;
+  border: solid blue;
+  border-radius: 10px;
+  padding: 0.5%;
+}
+
 .logbutton {
-  width: 5%;
+  position: relative;
+  width: 15%;
+  margin: 1%;
+  background-color: aqua;
+}
+
+.logbutton:hover {
+  border: solid blue;
+}
+
+.loginform {
+  padding: 2% 0 2% 0;
+  height: auto;
+}
+
+.registerform {
+  width: 100%;
+  height: 100%;
+  background-color: grey;
+  text-align: left;
+  display: inline-block;
+  padding: 2% 0 0 15%;
 }
 
 h2 {
@@ -111,7 +144,6 @@ h2 {
   background: aqua;
 }
 
-
 h3 {
   width: 100%;
   height: 5%;
@@ -126,12 +158,6 @@ h3 {
 
 label {
   margin-right: 5%;
-}
-
-.login {
-  width: 100%;
-  height: 100%;
-  
 }
 
 @media (max-width: 700px) {

@@ -27,15 +27,16 @@ function Calendar(props) {
   
     const [error, setError] = useState('');
 
+    const fetchTasks = async () => {
+        try {
+          const response = await axios.get('/api/tasks',{ params: { id: userid }});
+          setTaskList(response.data);
+        } catch (error) {
+          console.error('Error loading tasks:', error);
+        }
+    };
+
     useEffect(() => {
-        const fetchTasks = async () => {
-            try {
-              const response = await axios.get('/api/tasks',{ params: { id: userid }});
-              setTaskList(response.data);
-            } catch (error) {
-              console.error('Error loading tasks:', error);
-            }
-        };
         fetchTasks();
     }, [userid]);
 
@@ -57,7 +58,6 @@ function Calendar(props) {
           Hide();
           const response = await axios.post('/api/tasks', { username, task, date, state });
           const createdTask = response.data;
-          console.log(createdTask);
           fetchTasks();
         } catch (error) {
           console.error(error);
@@ -151,13 +151,9 @@ function Calendar(props) {
                 return (
                     <div className="daybox" key={index}>
                     {dayOfMonth+1}.
-                    <ul>
                         {tasksForThisDay.map((task, taskIndex) => (
-                        <li key={taskIndex}>
                          <button className="taskbutton">{task.decription}</button>
-                        </li>
                         ))}
-                    </ul>
                     </div>
                 );
                 }
