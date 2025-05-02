@@ -11,7 +11,6 @@ router.get('/', async (req, res) => {
       return res.status(400).json({ error: 'User is required' });
     }
     const result = await client.query('SELECT * FROM tasks t JOIN projectmember pm ON pm.task_id=t.id WHERE pm.user_id = $1;', [id]);
-    console.log(result);
     res.json(result.rows);
   } catch (err) {
     console.error('Error fetching users:', err);
