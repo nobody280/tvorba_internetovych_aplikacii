@@ -15,13 +15,13 @@ function Calendar(props) {
 
     const [taskWindow1, setShowTask] = useState(false);
     const [taskWindow2, setShowProject] = useState(false);
-    const [EditWindow1, setEditTask] = useState(false);
 
     const [project, setProject] = useState('');
     const [task, setTask] = useState('');
     const [state, setState] = useState('in progress');
     const [description, setDesc] = useState('');
     const [date, setDate] = useState('');
+    const [priority, setPriority] = useState('low');
     const [taskList, setTaskList] = useState([]);
     const [selectedTask, setSelectedTask] = useState('');
   
@@ -56,13 +56,17 @@ function Calendar(props) {
     const newTask = async ()  => {
         try {
           Hide();
-          const response = await axios.post('/api/tasks', { username, task, date, state });
-          const createdTask = response.data;
+          const response = await axios.post('/api/tasks', { userid, task, date, state, priority });
           fetchTasks();
         } catch (error) {
           console.error(error);
           setError(error);
         }
+    };
+
+    const handleEditTask = async (task) => {
+        localStorage.setItem('task', JSON.stringify(task)); 
+        navigate('/edit');
     };
     
     const addProject = () => {};
@@ -74,6 +78,7 @@ function Calendar(props) {
         setTask('');
         setDate('');
         setProject('');
+        setPriority('low');
     };
 
     const handleLogout = () => {
@@ -131,6 +136,13 @@ function Calendar(props) {
                     <label htmlFor="taskName">TaskName:</label>
                     <input type="text" id="name" name="name" value={task} onChange={e => setTask(e.target.value)} ></input>
                     <br></br>
+                    <label htmlFor="priority">Priority:</label>
+                    <select id='priority' value={priority} onChange={(e) => setPriority(e.target.value)}>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                    <br></br>
                     <label htmlFor="deadline">Deadline:</label>
                     <input type="date" id="date" name="date" value={date} onChange={e => setDate(e.target.value)} min={new Date().toISOString().split('T')[0]}></input>
                     <br></br>
@@ -152,7 +164,7 @@ function Calendar(props) {
                     <div className="daybox" key={index}>
                     {dayOfMonth+1}.
                         {tasksForThisDay.map((task, taskIndex) => (
-                         <button className="taskbutton">{task.decription}</button>
+                         <button className="taskbutton" onClick={() => handleEditTask(task)} key={task.id}>{task.decription}</button>
                         ))}
                     </div>
                 );
