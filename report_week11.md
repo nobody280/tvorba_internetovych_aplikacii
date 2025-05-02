@@ -14,7 +14,8 @@
 - implement improvements based on feedback
 
 # Vykonaná práca:
-- pridaná registrácia ()
+- pridaná registrácia (5917abc; bd5eb90)
+- dokončenie updateTask (99bc142; dc0f69a)
   
 # Zdôvodnenie rozdielov medzi plánom a vykonanou prácou:
 Ďalšie povinosti.
