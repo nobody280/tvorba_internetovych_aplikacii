@@ -21,3 +21,7 @@
 Ďalšie povinosti.
 
 # Plán na ďalší týždeň:
+- finish project operations
+- sharing for tasks and projects
+- automatise marking tasks as overdue
+- implement improvements based on feedback
