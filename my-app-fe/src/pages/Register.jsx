@@ -30,6 +30,7 @@ function Register (props) {
               props.setAuthStatus(true);
               localStorage.setItem('username', response.userName);
               localStorage.setItem('userid', response.userId);
+              console.log("registering");
               navigate('/calendar');
           })
           .catch((error) => {
