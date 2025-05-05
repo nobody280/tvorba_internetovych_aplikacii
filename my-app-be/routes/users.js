@@ -5,7 +5,6 @@ import client from '../db.js';
 const router = express.Router();
 
 router.post('/register', async (req, res)  => {
-  console.log("request recieved");
   const { username, first_name, last_name, password } = req.body;
 
   try {
