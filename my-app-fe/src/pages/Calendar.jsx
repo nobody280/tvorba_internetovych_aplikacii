@@ -156,7 +156,7 @@ function Calendar(props) {
             <div className="monthbox">
             {items.map((_, index) => {
                 const dayOfMonth = index;
-                const currentDate = `${year}-${String(month+1).padStart(2, '0')}-${String(dayOfMonth).padStart(2, '0')}`;
+                const currentDate = `${year}-${String(month+1).padStart(2, '0')}-${String(dayOfMonth+1).padStart(2, '0')}`;
                 const groupedTasks = tasksByDate(taskList);
                 const tasksForThisDay = groupedTasks[currentDate] || [];
 
