@@ -50,9 +50,6 @@ router.put('/:id', async (req,res) => {
     const projectid = updatedTask.rows[0].project;
 
     const updatedProject = await client.query('UPDATE projects SET name = $2, state = $3, final_deadline = $4, project_priority=$5 WHERE id = $1;', [projectid, decription, state, date, priority]);
-    
-    const newTask = taskResult.rows[0];
-    res.status(201).json(newTask);
   } catch (error) {
     console.error('Error inserting task:', error);
     res.status(500).json({ error: 'Error inserting task' });
