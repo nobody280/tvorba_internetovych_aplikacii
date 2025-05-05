@@ -11,7 +11,7 @@ function Edit (props) {
 
     const taskid = task.task_id;
     const [decription, setTask] = useState(task.decription);
-    const [priority, setPriority] = useState(task.priority);
+    const [priority, setPriority] = useState(task.project_priority);
     const [state, setState] = useState(task.state);
     const [date, setDate] = useState(task.deadline.split('T')[0]);
 
