@@ -23,10 +23,8 @@ function Edit (props) {
 
     const editTask = async () => {
         try {
-            console.log(task);
-            console.log(taskid, decription, priority, state, date);
             const response = await axios.put(`/api/tasks/${taskid}`, { decription, priority, state, date });
-            Back();
+            navigate('/calendar');
           } catch (error) {
             console.error(error);
             setError(error);
