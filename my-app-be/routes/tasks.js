@@ -59,13 +59,13 @@ router.put('/:id', async (req,res) => {
   }
   });
 
-router.delete('/', async (req, res) => {
-  const {taskId} = req.body;
+router.delete('/:id', async (req, res) => {
+  const taskid = req.params.id;
   try {
-    console.log(taskId);
-    const task = await client.query('DELETE FROM tasks WHERE id = $1 RETURNING *;', [taskId]);
-    const projectId = task.rows[0].project;
-    await client.query('DELETE FROM projects WHERE id = $1;', [projectId]);
+    console.log(taskid);
+    const task = await client.query('DELETE FROM tasks WHERE id = $1 RETURNING *;', [taskid]);
+    const projectid = task.rows[0].project;
+    await client.query('DELETE FROM projects WHERE id = $1;', [projectid]);
     res.status(200).json({ message: 'Task deleted successfully' });
   } catch (error) {
     console.error('Error deleting task:', error);
