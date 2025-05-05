@@ -9,7 +9,7 @@ function Edit (props) {
     const userid = localStorage.getItem('userid');
     const task = JSON.parse(localStorage.getItem('task'));
 
-    const taskid = task.task_id;
+    const taskid = task.id;
     const [decription, setTask] = useState(task.decription);
     const [priority, setPriority] = useState(task.project_priority);
     const [state, setState] = useState(task.state);
