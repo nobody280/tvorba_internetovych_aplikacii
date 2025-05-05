@@ -42,7 +42,7 @@ router.post('/', async (req, res) => {
 
 router.put('/', async (req,res) => {
   const { taskid, decription, priority, state, date } = req.body;
-  console.log(state);
+  console.log(taskid);
 
   try {
     const taskResult = await client.query('SELECT * FROM tasks WHERE tasks.id = $1;', [taskid]);
