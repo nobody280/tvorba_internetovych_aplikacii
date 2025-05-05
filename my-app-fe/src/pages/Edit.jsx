@@ -23,6 +23,7 @@ function Edit (props) {
 
     const editTask = async () => {
         try {
+            console.log(task);
             const response = await axios.put('/api/tasks/', { data: { taskid, decription, priority, state, date } });
             Back();
           } catch (error) {
@@ -50,7 +51,6 @@ function Edit (props) {
             </div>
 
             <div className="form">
-                {console.log(task);}
                 <label htmlFor="taskName">TaskName:</label>
                 <input type="text" id="name" name="name" value={decription} onChange={e => setTask(e.target.value)}></input>
                 <br></br>
