@@ -23,7 +23,7 @@ function Edit (props) {
 
     const editTask = async () => {
         try {
-            const response = await axios.put('/api/tasks/', { taskid, decription, priority, state, date });
+            const response = await axios.put('/api/tasks/', { data: { taskid, decription, priority, state, date } });
             Back();
           } catch (error) {
             console.error(error);
@@ -33,7 +33,7 @@ function Edit (props) {
 
     const deleteTask = async () => {
         try {
-            const response = await axios.delete('/api/tasks/', {taskid});
+            const response = await axios.delete('/api/tasks/', { data: { taskid } });
             Back();
         } catch (error) {
             console.error(error);
