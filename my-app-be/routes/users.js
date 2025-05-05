@@ -8,6 +8,7 @@ router.post('/register', async (req, res)  => {
   const { username, first_name, last_name, password } = req.body;
 
   try {
+    console.log("try to register");
     const user = await client.query('INSERT INTO users (first_name, last_name, username) VALUES ($1, $2, $3) RETURNING *;', [first_name, last_name, username]);
     const userId = user.rows[0]?.id;
 
