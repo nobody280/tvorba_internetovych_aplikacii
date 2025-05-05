@@ -41,7 +41,7 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/', async (req,res) => {
-  const { taskid, decription, priority, state, date } = req.body.data;
+  const { taskid, decription, priority, state, date } = req.body;
   console.log(taskid);
 
   try {
