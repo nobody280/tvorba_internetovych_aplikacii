@@ -17,7 +17,7 @@ router.post('/register', async (req, res)  => {
     const account = await client.query('INSERT INTO accounts (password_hash, user_id) VALUES ($1, $2) RETURNING *;', [hash, userId]);
 
     res.status(200).json({ message: 'Registration successful', userId, userName: username });
-  } catch (error) {
+  } catch (err) {
     console.error('Error during registration:', err);
     res.status(500).json({ error: 'Internal Server Error' }); 
   }
