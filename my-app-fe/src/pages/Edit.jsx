@@ -33,6 +33,7 @@ function Edit (props) {
 
     const deleteTask = async () => {
         try {
+            console.log(taskid);
             const response = await axios.delete('/api/tasks/', { data: { taskid } });
             Back();
         } catch (error) {
