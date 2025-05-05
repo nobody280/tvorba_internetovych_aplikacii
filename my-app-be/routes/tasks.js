@@ -43,7 +43,7 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req,res) => {
   const taskid = req.params.id;
   const { decription, priority, state, date } = req.body;
-  console.log(taskid);
+  console.log(req.body);
 
   try {
     const updatedTask = await client.query('UPDATE tasks SET decription = $2, state = $3, deadline = $4 WHERE id = $1 RETURNING *;', [taskid, decription, state, date]);
