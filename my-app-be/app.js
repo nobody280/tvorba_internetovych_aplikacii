@@ -7,7 +7,7 @@ import dotenv from 'dotenv';
 
 import usersRouter from './routes/users.js';
 import tasksRouter from './routes/tasks.js';
-import { updateStates } from './deadlineUpdate.js';
+
 
 dotenv.config();
 var app = express();
@@ -26,8 +26,6 @@ app.use(session({
 
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 app.use(express.static(path.join(__dirname, 'public')));
-
-updateStates();
 
 app.use('/api/users', usersRouter);
 app.use('/api/tasks', tasksRouter);
