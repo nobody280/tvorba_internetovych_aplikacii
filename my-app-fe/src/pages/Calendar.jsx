@@ -164,7 +164,7 @@ function Calendar(props) {
                     <div className="daybox" key={index}>
                     {dayOfMonth+1}.
                         {tasksForThisDay.map((task, taskIndex) => (
-                         <button className="taskbutton" onClick={() => handleEditTask(task)} key={task.id}>{task.decription} {task.deadline}</button>
+                         <button className="taskbutton" onClick={() => handleEditTask(task)} key={task.id}>{task.decription}</button>
                         ))}
                     </div>
                 );
