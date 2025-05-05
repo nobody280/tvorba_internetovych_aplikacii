@@ -65,7 +65,7 @@ function Calendar(props) {
     };
 
     const handleEditTask = async (task) => {
-        console.log(task.id);
+        console.log(task);
         localStorage.setItem('task', JSON.stringify(task)); 
         navigate('/edit');
     };
