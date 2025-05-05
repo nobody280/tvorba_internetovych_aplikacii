@@ -66,6 +66,7 @@ function Calendar(props) {
     };
 
     const handleEditTask = async (task) => {
+        setPriority(task.priority);
         console.log(task);
         localStorage.setItem('task', JSON.stringify(task)); 
         navigate('/edit');
