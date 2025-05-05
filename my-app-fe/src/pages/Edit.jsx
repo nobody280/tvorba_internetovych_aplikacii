@@ -24,7 +24,7 @@ function Edit (props) {
     const editTask = async () => {
         try {
             console.log(task);
-            const response = await axios.put(`/api/tasks/${taskid}`, { data: { decription, priority, state, date } });
+            const response = await axios.put(`/api/tasks/${taskid}`, { decription, priority, state, date });
             Back();
           } catch (error) {
             console.error(error);
