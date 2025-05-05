@@ -21,6 +21,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   const { userid, task, date, state, priority } = req.body;
 
+  console.log(priority);
   if (!task || !date) {
     return res.status(400).json({ error: 'Name and Deadline are required' });
   }
