@@ -61,8 +61,8 @@ router.put('/', async (req,res) => {
 
 router.delete('/', async (req, res) => {
   const {taskId} = req.body;
-
   try {
+    console.log(taskId);
     const task = await client.query('DELETE FROM tasks WHERE id = $1 RETURNING *;', [taskId]);
     const projectId = task.rows[0].project;
     await client.query('DELETE FROM projects WHERE id = $1;', [projectId]);
