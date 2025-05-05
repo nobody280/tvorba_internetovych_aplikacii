@@ -31,7 +31,15 @@ function Edit (props) {
           }
     };
 
-    const deleteTask = async () => {};
+    const deleteTask = async () => {
+        try {
+            const response = await axios.delete('/api/tasks/', {taskid});
+            Back();
+        } catch (error) {
+            console.error(error);
+            setError(error);
+        }
+    };
 
     return (
         <>
