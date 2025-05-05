@@ -40,12 +40,12 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.put('/', async (req,res) => {
-  const { taskid, decription, priority, state, date } = req.body;
+router.put('/:id', async (req,res) => {
+  onst taskid = req.params.id;
+  const { decription, priority, state, date } = req.body;
   console.log(taskid);
 
   try {
-    const taskResult = await client.query('SELECT * FROM tasks WHERE tasks.id = $1;', [taskid]);
     const updatedTask = await client.query('UPDATE tasks SET decription = $2, state = $3, deadline = $4 WHERE id = $1 RETURNING *;', [taskid, decription, state, date]);
     const projectid = updatedTask.rows[0].project;
 
