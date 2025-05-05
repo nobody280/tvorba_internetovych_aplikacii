@@ -41,7 +41,7 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/:id', async (req,res) => {
-  onst taskid = req.params.id;
+  const taskid = req.params.id;
   const { decription, priority, state, date } = req.body;
   console.log(taskid);
 
