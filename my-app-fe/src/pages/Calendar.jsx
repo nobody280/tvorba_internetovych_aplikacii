@@ -16,6 +16,7 @@ function Calendar(props) {
 
     const [taskWindow1, setShowTask] = useState(false);
     const [projectWindow, setShowProject] = useState(false);
+    const [notifications, setShowNotifications] = useState(false);
 
     const [project, setProject] = useState('');
     const [user, setUser] = useState(username);
@@ -27,7 +28,6 @@ function Calendar(props) {
     const [priority, setPriority] = useState('low');
     const [projectTasks, setProjectTask] = useState([{ name: '', user: '', date: '', admin: false }]);
     const [taskList, setTaskList] = useState([]);
-    const [selectedTask, setSelectedTask] = useState('');
   
     const [error, setError] = useState('');
 
@@ -53,12 +53,16 @@ function Calendar(props) {
         }, {});
     };
 
+    const Notifications = () => {
+        setShowNotifications(true);
+    };
+
     const getColor = (taskState) => {
         switch (taskState) {
             case 'overdue':
-                return 'red';
+                return 'tomato';
             case 'finished':
-                return 'green';
+                return 'greenyellow';
             default:
                 return 'aqua';
         }
@@ -115,6 +119,7 @@ function Calendar(props) {
     const Hide = () => {
         setShowTask(false);
         setShowProject(false);
+        setShowNotifications(false);
     
         setTask('');
         setDate('');
@@ -224,9 +229,18 @@ function Calendar(props) {
             </div>
         )}
 
+        {notifications && (
+            <div className='taskwindow'>
+                <div className='noteWindow'>
+                    hi :P
+                </div>
+            </div>
+        )}
+
 
         <nav>
           <div>{username}</div>
+          <button type='button' onClick={Notifications}>Notifications</button>
           <button type="button" onClick={addTask}>New Task</button>
           <button type="button" onClick={addProject}>New Project</button>
           <button type="button" onClick={handleLogout}>LogOut</button>
@@ -235,7 +249,7 @@ function Calendar(props) {
         <div className='calendar'>
             <div className="month">
                 <button type="button" onClick={oneLess}>&laquo;</button>
-                <h2>{new Date(year, month).toLocaleString("default", { month: "long" })} {year}</h2>
+                <h2>{new Date(year, month).toLocaleString("en-US", { month: "long" })} {year}</h2>
                 <button type="button" onClick={oneMore}>&raquo;</button>
             </div>
 
