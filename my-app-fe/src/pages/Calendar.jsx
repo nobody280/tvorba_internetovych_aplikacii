@@ -268,7 +268,6 @@ function Calendar(props) {
 
         <nav>
           <div>{username}</div>
-          <button type='button' onClick={Notifications}>Notifications</button>
           <button type="button" onClick={addTask}>New Task</button>
           <button type="button" onClick={addProject}>New Project</button>
           <button type="button" onClick={handleLogout}>LogOut</button>
