@@ -54,7 +54,7 @@ function Calendar(props) {
     };
 
     const getColor = (taskState) => {
-        switch (state) {
+        switch (taskState) {
             case 'overdue':
                 return 'red';
             case 'finished':
