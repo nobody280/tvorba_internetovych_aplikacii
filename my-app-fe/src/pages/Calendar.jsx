@@ -253,8 +253,7 @@ function Calendar(props) {
             <div className='taskWindow'>
                 {noteList.map((note) => (
                     <div className='noteWindow'>
-                        <h4>Upcoming deadline</h4>
-                        
+                        {note}
                     </div>
                 ))}
             </div>
