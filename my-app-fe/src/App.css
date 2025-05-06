@@ -110,22 +110,11 @@ h2 {
   left: 0;
   z-index: 2;
   max-height: 100vh;
-  overflow-y: auto;
+  overflow-y: scroll;
   background-color: gray;
   box-sizing: border-box;
   scrollbar-width: thin;
   scrollbar-color: #888 #eee;
-}
-
-.taskWindow::-webkit-scrollbar {
-  width: 8px;
-}
-.taskWindow::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 4px;
-}
-.taskWindow::-webkit-scrollbar-track {
-  background: #eee;
 }
 
 .editWindow {
