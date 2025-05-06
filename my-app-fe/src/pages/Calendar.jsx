@@ -60,7 +60,7 @@ function Calendar(props) {
         try {
           Hide();
           console.log(priority);
-          const response = await axios.post('/api/tasks', { userid, task, date, state, priority });
+          const response = await axios.post('/api/tasks', { task, date, state, priority });
           fetchTasks();
         } catch (error) {
           console.error(error);
@@ -89,8 +89,14 @@ function Calendar(props) {
         setProjectTask(updatedTasks);
     };
 
-    const newProject = () => {
-        console.log(projectTasks);
+    const newProject = async ()  => {
+        try {
+            Hide();
+            const response = await axios.post('api/projects', {userid, description, priority, findate, projectTasks});
+        } catch (error) {
+            console.error(error);
+            setError(error);
+        };
     };
     
     const Hide = () => {
@@ -195,7 +201,7 @@ function Calendar(props) {
                             
                         </div>
                     ))}
-                    <button type='button' className='colorbutton' onClick={appendProjectTask}>+</button>
+                    <button type='button' className='plusbutton' onClick={appendProjectTask}>+</button>
                     <br></br>
                     <button type="button" className="colorbutton" onClick={newProject}>Add Project</button>
                     <button type="button" className="colorbutton" onClick={Hide}>Discard</button>

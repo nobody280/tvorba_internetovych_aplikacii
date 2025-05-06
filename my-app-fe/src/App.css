@@ -117,6 +117,13 @@ h2 {
   scrollbar-color: black #eee;
 }
 
+.plusbutton {
+  border-radius: 50%;
+  background-color: aqua;
+  right: 0;
+  
+}
+
 .editWindow {
   position: fixed;
   width: 100%;
