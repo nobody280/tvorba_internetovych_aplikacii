@@ -50,7 +50,7 @@ function Calendar(props) {
                 "high": 8 * 24 * 60 * 60 * 1000
             };
 
-            return t.state === "in progress" && new Date(t.date) <= today+days[t.priority];
+            return t.state === "in progress" && new Date(t.date) <= new Date(today.getTime() + days[t.priority]);
         });
         console.log(relevantTasks);
         const notes = relevantTasks.map(t => {
