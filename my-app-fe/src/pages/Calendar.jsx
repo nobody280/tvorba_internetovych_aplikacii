@@ -173,14 +173,6 @@ function Calendar(props) {
                     <label htmlFor="deadline">FinalDeadline:</label>
                     <input type="date" id="date" name="date" value={date} onChange={e => setDate(e.target.value)} min={new Date().toISOString().split('T')[0]}></input>
 
-                    
-                    <h4>Tasks:</h4>
-                    <br></br>
-                    { projectTasks.map((t, index) => (
-                        <>
-                        hello
-                        </>
-                    )) }
                     <br></br>
 
                     
