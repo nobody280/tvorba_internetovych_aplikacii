@@ -73,6 +73,7 @@ function Calendar(props) {
     };
 
     const Notifications = () => {
+        console.log("click");
         setShowNotifications(true);
     };
 
