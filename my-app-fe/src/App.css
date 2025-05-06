@@ -108,6 +108,9 @@ h2 {
   height: 100%;
   left: 0;
   z-index: 2;
+  transform: translateX(-50%);
+  max-height: 80vh;
+  overflow-y: auto;
   background-color: gray;
 }
 
