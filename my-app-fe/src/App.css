@@ -117,6 +117,17 @@ h2 {
   scrollbar-color: #888 #eee;
 }
 
+.taskWindow::-webkit-scrollbar {
+  width: 8px;
+}
+.taskWindow::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+.taskWindow::-webkit-scrollbar-track {
+  background: #eee;
+}
+
 .editWindow {
   position: fixed;
   width: 100%;
