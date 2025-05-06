@@ -106,15 +106,15 @@ h2 {
 .taskWindow {
   position: fixed;
   width: 20%;
-  height: 50vh;
+  height: 100vh;
   left: 0;
   z-index: 2;
-  max-height: 50vh;
+  max-height: 100vh;
   overflow-y: scroll;
   background-color: gray;
   box-sizing: border-box;
   scrollbar-width: thin;
-  scrollbar-color: #888 #eee;
+  scrollbar-color: black #eee;
 }
 
 .editWindow {
