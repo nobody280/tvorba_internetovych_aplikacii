@@ -21,6 +21,7 @@ function Calendar(props) {
     const [state, setState] = useState('in progress');
     const [description, setDesc] = useState('');
     const [date, setDate] = useState('');
+    const [findate, setFinDate] = useState('');
     const [priority, setPriority] = useState('low');
     const [projectTasks, setProjectTask] = useState([{},{},{}]);
     const [taskList, setTaskList] = useState([]);
@@ -141,7 +142,7 @@ function Calendar(props) {
                     </select>
                     <br></br>
                     <label htmlFor="deadline">Deadline:</label>
-                    <input type="date" id="date" name="date" value={date} onChange={e => setDate(e.target.value)} min={new Date().toISOString().split('T')[0]}></input>
+                    <input type="date" id="date" name="date" value={findate} onChange={e => setFinDate(e.target.value)} min={new Date().toISOString().split('T')[0]}></input>
                     <br></br>
 
                     <button type="button" className="colorbutton" onClick={newTask}>Add Task</button>
@@ -155,7 +156,7 @@ function Calendar(props) {
                 <h3>Project Info:</h3>
                 <br></br>
                 <div className='form'>
-                <label htmlFor="projectName">ProjectName:</label>
+                    <label htmlFor="projectName">ProjectName:</label>
                     <input type="text" id="name" name="name" value={description} onChange={e => setDesc(e.target.value)} ></input>
                     <br></br>
                     <label htmlFor="priority">Priority:</label>
@@ -166,11 +167,17 @@ function Calendar(props) {
                     </select>
                     <br></br>
                     <label htmlFor="deadline">Final Deadline:</label>
-                    <input type="date" id="date" name="date" value={date} onChange={e => setDate(e.target.value)} min={new Date().toISOString().split('T')[0]}></input>
+                    <input type="date" id="date" name="date" value={date} onChange={e => setDate(e.target.value)} min={new Date().toISOString().split('T')[0]} max={findate}></input>
+                    
                     <br></br>
 
                     {projectTasks.map((t, index) => (
-                        <div>hello, task</div>
+                        <div>
+                            <h4>Task{index+1}</h4>
+                            <br></br>
+                            <label htmlFor="taskName">Name:</label>
+                            <input type="text" id={index} name="name" value={name} onChange={e => setTask(e.target.value)} ></input>
+                        </div>
                     ))}
 
                     <button type="button" className="colorbutton" onClick={newProject}>Add Project</button>
