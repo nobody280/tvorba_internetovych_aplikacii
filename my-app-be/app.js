@@ -29,14 +29,14 @@ app.use(session({
     cookie: { secure: true }
   }));
 
-  app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use('/api/users', usersRouter);
 app.use('/api/tasks', tasksRouter);
 app.use('/api/projects', projectRouter);
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 updateStates();
