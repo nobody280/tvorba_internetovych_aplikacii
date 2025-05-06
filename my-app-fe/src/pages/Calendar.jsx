@@ -50,9 +50,10 @@ function Calendar(props) {
                 "high": 8 * 24 * 60 * 60 * 1000
             };
 
+            console.log(new Date(today.getTime() + days[t.priority]));
             return t.state === "in progress" && new Date(t.date) <= new Date(today.getTime() + days[t.priority]);
         });
-        console.log(relevantTasks);
+        
         const notes = relevantTasks.map(t => {
             return `Task "${t.decription}" is due by ${t.deadline}.`;
         });
