@@ -34,7 +34,6 @@ router.post('/', async (req, res) => {
 
     const newTask = taskResult.rows[0];
     res.status(201).json(newTask);
-    console.log("i did it");
   } catch (error) {
     console.error('Error inserting task:', error);
     res.status(500).json({ error: 'Error inserting task' });
