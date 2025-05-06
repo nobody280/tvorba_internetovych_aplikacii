@@ -55,7 +55,7 @@ function Calendar(props) {
         const notes = relevantTasks.map(t => {
             return `Task "${t.decription}" is due by ${t.deadline}.`;
         });
-        if (relevantTasks.length === 0) {
+        if (relevantTasks.length !== 0) {
             setNoteList(notes);
         }
     };
@@ -235,8 +235,8 @@ function Calendar(props) {
                             <br></br>
                             <label htmlFor="taskAssignment">User:</label>
                             <input type="text" id={`user-${index}`} name="user" value={t.user} onChange={e => updateProjectTask(index, "user", e.target.value)} ></input>
-                            <input type="checkbox" id={`admin-${index}`} name="admin" checked={t.admin == true} onChange={(e) => updateProjectTask(index, "admin", e.target.value)}></input>
-                            <label htmlFor="taskAssignment">User is Admin</label>
+                            <input type="checkbox" id={`admin-${index}`} name="admin" checked={t.admin} onChange={(e) => updateProjectTask(index, "admin", e.target.value)}></input>
+                            <label htmlFor="taskAssignment">Admin</label>
                             <br></br>
                             <label htmlFor="deadline">Final Deadline:</label>
                             <input type="date" id={`date-${index}`} name="date" value={t.date} onChange={e => updateProjectTask(index, "date", e.target.value)} min={new Date().toISOString().split('T')[0]} max = {findate || new Date().toISOString().split('T')[0]}></input>

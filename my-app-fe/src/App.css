@@ -120,10 +120,10 @@ h2 {
 .plusbutton {
   align-items: center;
   text-align: center;
-  border-radius: 50%;
+  border-radius: 15%;
   background-color: aqua;
-  width: 10%;
-  width: 10%;
+  width: 5%;
+  width: 5%;
   display: flex;
   justify-content: center;
 }
