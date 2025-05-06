@@ -27,7 +27,7 @@ function Calendar(props) {
     const [priority, setPriority] = useState('low');
     const [projectTasks, setProjectTask] = useState([{ name: '', user: '', date: '', admin: false }]);
     const [taskList, setTaskList] = useState([]);
-    const [noteList, setNoteList] = useState([]);
+    const [noteList, setNoteList] = useState(["You have no notifications :)"]);
   
     const [error, setError] = useState('');
 
@@ -251,11 +251,13 @@ function Calendar(props) {
 
         {notifications && (
             <div className='taskWindow'>
+                <h3>Notifications</h3>
                 {noteList.map((note) => (
                     <div className='noteWindow'>
                         {note}
                     </div>
                 ))}
+                <button type="button" className="colorbutton" onClick={Hide}>GoBack</button>
             </div>
         )}
 
