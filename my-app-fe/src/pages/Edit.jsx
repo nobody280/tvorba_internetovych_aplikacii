@@ -221,7 +221,7 @@ function Edit (props) {
                 <div className="form">
                     <label htmlFor="taskName">Project: {project}</label>
                     <br></br>
-                    <label htmlFor="taskName">TaskName: {decription}</label>
+                    <label htmlFor="taskName">YourTaskName: {decription}</label>
                     <br></br>
                     <label htmlFor="priority">Priority: {priority}</label>
                     <br></br>
@@ -229,6 +229,16 @@ function Edit (props) {
                     <input type="checkbox" id="state" name="state" checked={state === 'finished'} onChange={(e) => setState(e.target.checked ? 'finished' : 'in progress')}></input>
                     <label htmlFor="state">Mark as Finished</label>
                     <br></br>
+
+                    {taskList.map((t,index) => (
+                    <>
+                    <label htmlFor="taskName">Task {index+1}: {t.decription}</label>
+                    <br></br>
+                    <label htmlFor="date">Deadline: {t.deadline}</label>
+                    <label htmlFor="state">{t.state}</label>
+                    <br></br>
+                    </>
+                ))}
                 </div>
 
                 <button className="logbutton" onClick={editTask}>
