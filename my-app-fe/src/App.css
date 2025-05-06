@@ -143,6 +143,7 @@ h2 {
   background-color: lightgray;
   border: "solid" black 1px;
   padding: 2%;
+  z-index: inherit;
 }
 
 .message {
