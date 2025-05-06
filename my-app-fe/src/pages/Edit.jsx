@@ -10,11 +10,14 @@ function Edit (props) {
     const task = JSON.parse(localStorage.getItem('task'));
 
     const taskid = task.id;
+    const project = task.name;
     const [decription, setTask] = useState(task.decription);
     const [priority, setPriority] = useState(task.project_priority);
     const [state, setState] = useState(task.state);
     const [date, setDate] = useState(task.deadline.split('T')[0]);
     const admin = task.admin;
+
+    const allowEdit = admin && (state != 'overdue')
 
     const [error, setError] = useState('');
 
@@ -49,9 +52,10 @@ function Edit (props) {
                 <h3>Task Info</h3>
             </div>
 
-            {admin && (
+            {allowEdit && (
             <>
             <div className="form">
+            <label htmlFor="taskName">Project:{project}</label>
                 <label htmlFor="taskName">TaskName:</label>
                 <input type="text" id="name" name="name" value={decription} onChange={e => setTask(e.target.value)}></input>
                 <br></br>
@@ -86,9 +90,9 @@ function Edit (props) {
             )}
 
 
-            {!admin && (
+            {!allowEdit && (
                 <>
-                you are not a admin
+                
                 </>
             )}
         </div>
