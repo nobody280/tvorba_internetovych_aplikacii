@@ -33,6 +33,7 @@ function Calendar(props) {
 
     const fetchTasks = async () => {
         try {
+          console.log("i was called");
           const response = await axios.get('/api/tasks',{ params: { id: userid }});
           setTaskList(response.data);
         } catch (error) {
