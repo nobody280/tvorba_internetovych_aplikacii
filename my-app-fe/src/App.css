@@ -119,6 +119,7 @@ h2 {
 
 .plusbutton {
   align-items: center;
+  text-align: center;
   border-radius: 50%;
   background-color: aqua;
   width: 10%;
