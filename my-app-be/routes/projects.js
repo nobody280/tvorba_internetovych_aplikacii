@@ -21,7 +21,7 @@ router.post('/', async (req, res) => {
 
             const user = await client.query('SELECT * FROM users WHERE username = $1', [t.user]);
             const userid = user.rows[0].id;
-            const projectmember = await client.query('INSERT INTO projectmember (user_id, admin, project_id, task_id) VALUES ($1, $2, $3, $4) RETURNING *;', [userid, false, projectId, taskId]);
+            const projectmember = await client.query('INSERT INTO projectmember (user_id, admin, project_id, task_id) VALUES ($1, $2, $3, $4) RETURNING *;', [userid, t.admin, projectId, taskId]);
 
         };
 
