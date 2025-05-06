@@ -158,28 +158,6 @@ function Calendar(props) {
         {projectWindow && (
             <div className='taskWindow'>
                 <h3>Project Info</h3>
-                <br></br>
-                    <div className="form">
-                        <label htmlFor='projectName'>ProjectName</label>
-                        <input type="text" id="name" name="name" value={project} onChange={e => setProject(e.target.value)}></input>
-                    <br></br>
-                    <label htmlFor="priority">Priority:</label>
-                    <select id='priority' value={priority} onChange={(e) => setPriority(e.target.value)}>
-                        <option value="low">Low</option>
-                        <option value="medium">Medium</option>
-                        <option value="high">High</option>
-                    </select>
-                    <br></br>
-                    <label htmlFor="deadline">FinalDeadline:</label>
-                    <input type="date" id="date" name="date" value={date} onChange={e => setDate(e.target.value)} min={new Date().toISOString().split('T')[0]}></input>
-
-                    <br></br>
-
-                    
-
-                    
-                    <button type="button" className="colorbutton" onClick={Hide}>Discard Task</button>
-                    </div>
             </div>
         )}
 
