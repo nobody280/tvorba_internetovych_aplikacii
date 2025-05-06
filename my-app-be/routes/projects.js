@@ -3,6 +3,21 @@ import client from '../db.js';
 
 const router = express.Router();
 
+router.get('/', async (req, res) => {
+    const userid = req.query.id;
+    const projectid = req.query.project;
+
+    if (!userid) {
+        return res.status(400).json({ error: 'User is required' });
+    }
+
+    if (!projectid) {
+        return res.status(400).json({ error: 'ProjectId is required' });
+    }
+    const result = await client.query('SELECT t.id, t.decription, t.deadline, pm.user_id, t.project, pm.admin, t.state, p.project_priority, p.name FROM tasks t JOIN projectmember pm ON pm.task_id=t.id JOIN projects p ON t.project=p.id WHERE pm.user_id = $1 AND t.project = $2;', [userid, projectid]);
+    res.json(result.rows);
+})
+
 router.post('/', async (req, res) => {
     const { description, priority, findate, projectTasks} = req.body;
     const state = 'in progress';
