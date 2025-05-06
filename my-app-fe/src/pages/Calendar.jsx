@@ -93,6 +93,7 @@ function Calendar(props) {
         try {
             Hide();
             const response = await axios.post('api/projects', {userid, description, priority, findate, projectTasks});
+            fetchTasks();
         } catch (error) {
             console.error(error);
             setError(error);
