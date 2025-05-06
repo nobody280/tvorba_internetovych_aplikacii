@@ -24,8 +24,7 @@ function Calendar(props) {
     const [date, setDate] = useState('');
     const [findate, setFinDate] = useState('');
     const [priority, setPriority] = useState('low');
-    const [projectTasks, setProjectTask] = useState([{ name: '', user: '', date: '' }, { name: '', user: '', date: '' }, { name: '', user: '', date: '' }]
-    );
+    const [projectTasks, setProjectTask] = useState([{ name: '', user: '', date: '' }]);
     const [taskList, setTaskList] = useState([]);
     const [selectedTask, setSelectedTask] = useState('');
   
@@ -80,6 +79,10 @@ function Calendar(props) {
         setShowProject(true);
     };
 
+    const appendProjectTask = () => {
+        setProjectTasks(prev => [...prev, { name: '', user: '', date: '' }]);
+    };
+
     const updateProjectTask = (index, field, value) => {
         const updatedTasks = [...projectTasks];
         updatedTasks[index] = { ...updatedTasks[index], [field]: value };
@@ -98,6 +101,7 @@ function Calendar(props) {
         setDate('');
         setProject('');
         setPriority('low');
+        setProjectTask([{ name: '', user: '', date: '' }]);
     };
 
     const handleLogout = () => {
@@ -151,7 +155,7 @@ function Calendar(props) {
                     <label htmlFor="deadline">Deadline:</label>
                     <input type="date" id="date" name="date" value={date} onChange={e => setDate(e.target.value)} min={new Date().toISOString().split('T')[0]}></input>
                     <br></br>
-
+                    
                     <button type="button" className="colorbutton" onClick={newTask}>Add Task</button>
                     <button type="button" className="colorbutton" onClick={Hide}>Discard</button>
                     </div>
@@ -191,7 +195,8 @@ function Calendar(props) {
                             
                         </div>
                     ))}
-
+                    <button type='button' className='colorbutton' onClick={appendProjectTask}>+</button>
+                    <br></br>
                     <button type="button" className="colorbutton" onClick={newProject}>Add Project</button>
                     <button type="button" className="colorbutton" onClick={Hide}>Discard</button>
                 </div>
