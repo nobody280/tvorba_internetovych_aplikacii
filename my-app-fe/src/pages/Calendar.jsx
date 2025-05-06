@@ -22,6 +22,7 @@ function Calendar(props) {
     const [description, setDesc] = useState('');
     const [date, setDate] = useState('');
     const [priority, setPriority] = useState('low');
+    const [projectTasks, setProjectTask] = useState([{},{},{}]);
     const [taskList, setTaskList] = useState([]);
     const [selectedTask, setSelectedTask] = useState('');
   
@@ -76,7 +77,9 @@ function Calendar(props) {
         setShowProject(true);
     };
 
-    const newProject = () => {};
+    const newProject = () => {
+        console.log("click");
+    };
     
     const Hide = () => {
         setShowTask(false);
@@ -142,7 +145,7 @@ function Calendar(props) {
                     <br></br>
 
                     <button type="button" className="colorbutton" onClick={newTask}>Add Task</button>
-                    <button type="button" className="colorbutton" onClick={Hide}>Discard Task</button>
+                    <button type="button" className="colorbutton" onClick={Hide}>Discard</button>
                     </div>
                 </div>
         )}
@@ -152,8 +155,8 @@ function Calendar(props) {
                 <h3>Project Info:</h3>
                 <br></br>
                 <div className='form'>
-                <label htmlFor="taskName">TaskName:</label>
-                    <input type="text" id="name" name="name" value={task} onChange={e => setTask(e.target.value)} ></input>
+                <label htmlFor="projectName">ProjectName:</label>
+                    <input type="text" id="name" name="name" value={decription} onChange={e => setDesc(e.target.value)} ></input>
                     <br></br>
                     <label htmlFor="priority">Priority:</label>
                     <select id='priority' value={priority} onChange={(e) => setPriority(e.target.value)}>
@@ -162,12 +165,16 @@ function Calendar(props) {
                         <option value="high">High</option>
                     </select>
                     <br></br>
-                    <label htmlFor="deadline">Deadline:</label>
+                    <label htmlFor="deadline">Final Deadline:</label>
                     <input type="date" id="date" name="date" value={date} onChange={e => setDate(e.target.value)} min={new Date().toISOString().split('T')[0]}></input>
                     <br></br>
 
+                    {projectTasks.map((t, index) => (
+                        <div>hello, task</div>
+                    ))}
+
                     <button type="button" className="colorbutton" onClick={newProject}>Add Project</button>
-                    <button type="button" className="colorbutton" onClick={Hide}>Discard Project</button>
+                    <button type="button" className="colorbutton" onClick={Hide}>Discard</button>
                 </div>
             </div>
         )}
