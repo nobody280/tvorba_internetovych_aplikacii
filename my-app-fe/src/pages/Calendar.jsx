@@ -45,13 +45,14 @@ function Calendar(props) {
             const today = new Date();
             today.setHours(0, 0, 0, 0); 
             const days = {
-                "low": 1 * 24 * 60 * 60 * 1000,
-                "medium": 3 * 24 * 60 * 60 * 1000,
-                "high": 7 * 24 * 60 * 60 * 1000
+                "low": 2 * 24 * 60 * 60 * 1000,
+                "medium": 4 * 24 * 60 * 60 * 1000,
+                "high": 8 * 24 * 60 * 60 * 1000
             };
 
             return t.state === "in progress" && new Date(t.date) <= today+days[t.priority];
         });
+        console.log(relevantTasks);
         const notes = relevantTasks.map(t => {
             return `Task "${t.decription}" is due by ${t.deadline}.`;
         });
@@ -98,7 +99,7 @@ function Calendar(props) {
           Hide();
           const response = await axios.post('/api/tasks', { userid, task, date, state, priority });
           await fetchTasks();
-          await getNotifications();
+          getNotifications();
         } catch (error) {
           console.error(error);
           setError(error);
@@ -131,7 +132,7 @@ function Calendar(props) {
             Hide();
             const response = await axios.post('api/projects', {userid, description, priority, findate, projectTasks});
             await fetchTasks();
-            await getNotifications();
+            getNotifications();
         } catch (error) {
             console.error(error);
             setError(error);
