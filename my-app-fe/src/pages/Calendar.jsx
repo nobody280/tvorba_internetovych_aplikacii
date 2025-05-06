@@ -64,7 +64,6 @@ function Calendar(props) {
 
     useEffect(() => {
         fetchTasks();
-        getNotifications();
     }, [userid]);
 
     const tasksByDate = (taskList) => {
@@ -100,7 +99,6 @@ function Calendar(props) {
           Hide();
           const response = await axios.post('/api/tasks', { userid, task, date, state, priority });
           await fetchTasks();
-          getNotifications();
         } catch (error) {
           console.error(error);
           setError(error);
@@ -133,7 +131,6 @@ function Calendar(props) {
             Hide();
             const response = await axios.post('api/projects', {userid, description, priority, findate, projectTasks});
             await fetchTasks();
-            getNotifications();
         } catch (error) {
             console.error(error);
             setError(error);
