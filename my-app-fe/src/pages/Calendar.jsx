@@ -33,7 +33,6 @@ function Calendar(props) {
 
     const fetchTasks = async () => {
         try {
-          console.log("i was called");
           const response = await axios.get('/api/tasks',{ params: { id: userid }});
           setTaskList(response.data);
         } catch (error) {
@@ -97,7 +96,7 @@ function Calendar(props) {
     const newTask = async ()  => {
         try {
           Hide();
-          const response = await axios.post('/api/tasks', { task, date, state, priority });
+          const response = await axios.post('/api/tasks', { userid, task, date, state, priority });
           fetchTasks();
         } catch (error) {
           console.error(error);
