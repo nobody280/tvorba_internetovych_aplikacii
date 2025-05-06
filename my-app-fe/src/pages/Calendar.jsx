@@ -73,8 +73,8 @@ function Calendar(props) {
     };
 
     const Notifications = () => {
-        console.log("click");
         setShowNotifications(true);
+        console.log(notifications);
     };
 
     const getColor = (taskState) => {
