@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
     if (!id) {
       return res.status(400).json({ error: 'User is required' });
     }
-    const result = await client.query('SELECT t.id, t.decription, t.deadline, pm.user_id, t.project, pm.admin, t.state, p.project_priority FROM tasks t JOIN projectmember pm ON pm.task_id=t.id JOIN projects p ON t.project=p.id WHERE pm.user_id = $1;', [id]);
+    const result = await client.query('SELECT t.id, t.decription, t.deadline, pm.user_id, t.project, pm.admin, t.state, p.project_priority, p.name FROM tasks t JOIN projectmember pm ON pm.task_id=t.id JOIN projects p ON t.project=p.id WHERE pm.user_id = $1;', [id]);
     res.json(result.rows);
   } catch (err) {
     console.error('Error fetching users:', err);
