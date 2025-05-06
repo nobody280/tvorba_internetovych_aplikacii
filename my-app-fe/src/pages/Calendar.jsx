@@ -73,8 +73,8 @@ function Calendar(props) {
     };
 
     const Notifications = () => {
+        
         setShowNotifications(true);
-        console.log(notifications);
     };
 
     const getColor = (taskState) => {
@@ -250,7 +250,7 @@ function Calendar(props) {
         )}
 
         {notifications && (
-            <div className='taskwindow'>
+            <div className='taskWindow'>
                 {noteList.map((note) => (
                     <div className='noteWindow'>
                         <h4>Upcoming deadline</h4>
