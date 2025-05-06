@@ -111,6 +111,7 @@ h2 {
   max-height: 100vh;
   overflow-y: auto;
   background-color: gray;
+  box-sizing: border-box;
 }
 
 .editWindow {
