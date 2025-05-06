@@ -14,7 +14,7 @@ function Calendar(props) {
     const items = Array(daysInMonth).fill(null);
 
     const [taskWindow1, setShowTask] = useState(false);
-    const [taskWindow2, setShowProject] = useState(false);
+    const [projectWindow, setShowProject] = useState(false);
 
     const [project, setProject] = useState('');
     const [task, setTask] = useState('');
@@ -72,7 +72,9 @@ function Calendar(props) {
         navigate('/edit');
     };
     
-    const addProject = () => {};
+    const addProject = () => {
+        setShowProject(true);
+    };
     
     const Hide = () => {
         setShowTask(false);
@@ -118,7 +120,7 @@ function Calendar(props) {
     return (
         <>
 
-{taskWindow1 && (
+        {taskWindow1 && (
                 <div className="taskWindow">
                     <h3>Task Info:</h3>
                     <br></br>
@@ -141,9 +143,13 @@ function Calendar(props) {
                     <button type="button" className="colorbutton" onClick={Hide}>Discard Task</button>
                     </div>
                 </div>
-            )}
+        )}
 
-        
+        {projectWindow && (
+            <div className='taskWindow'>
+                <h3>Project Info:</h3>
+            </div>
+        )}
         <nav>
           <div>{username}</div>
           <button type="button" onClick={addTask}>New Task</button>
