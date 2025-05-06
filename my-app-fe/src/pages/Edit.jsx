@@ -52,6 +52,7 @@ function Edit (props) {
                     })
                   );
                 await Promise.all(updatePromises);
+                alert('All tasks saved successfully!');
             } else {
                 const response = await axios.put(`/api/tasks/${taskid}`, { decription, priority, state, date });
             }
@@ -103,7 +104,6 @@ function Edit (props) {
 
                     {taskList.map((t, index) => (
                     <div key={t.id}>
-                        <br></br>
                         <label htmlFor={`taskName-${index}`}>Task {index + 1}:</label>
                         <input
                         type="text"
@@ -170,7 +170,8 @@ function Edit (props) {
             {!admin && (
                 <>
                 <br></br>
-                <label htmlFor="taskName">YourTask:</label>
+                <br></br>
+                <label htmlFor="taskName">TaskName:</label>
                 <input type="text" id="name" name="name" value={decription} onChange={e => setTask(e.target.value)}></input>
                 <br></br>
 
@@ -189,15 +190,6 @@ function Edit (props) {
                 <input type="checkbox" id="state" name="state" checked={state === 'finished'} onChange={(e) => setState(e.target.checked ? 'finished' : 'in progress')}></input>
                 <label htmlFor="state">Mark as Finished</label>
                 <br></br>
-                {taskList.map((t,index) => (
-                    <>
-                    <label htmlFor="taskName">Task {index+1}: {t.decription}</label>
-                    <br></br>
-                    <label htmlFor="date">Deadline: {t.deadline}</label>
-                    <label htmlFor="state">{t.state}</label>
-                    <br></br>
-                    </>
-                ))}
                 </>
             )}
             

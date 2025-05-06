@@ -15,6 +15,7 @@ function Calendar(props) {
 
     const [taskWindow1, setShowTask] = useState(false);
     const [projectWindow, setShowProject] = useState(false);
+    const [notifications, setShowNotifications] = useState(false);
 
     const [project, setProject] = useState('');
     const [user, setUser] = useState(username);
@@ -26,6 +27,7 @@ function Calendar(props) {
     const [priority, setPriority] = useState('low');
     const [projectTasks, setProjectTask] = useState([{ name: '', user: '', date: '', admin: false }]);
     const [taskList, setTaskList] = useState([]);
+    const [noteList, setNoteList] = useState(["You have no notifications :)"]);
   
     const [error, setError] = useState('');
 
@@ -38,8 +40,31 @@ function Calendar(props) {
         }
     };
 
+    const getNotifications = () => {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); 
+        const days = {
+            "low": 2 * 24 * 60 * 60 * 1000,
+            "medium": 4 * 24 * 60 * 60 * 1000,
+            "high": 8 * 24 * 60 * 60 * 1000
+        };
+
+        console.log(new Date(today.getTime() + days["low"]));
+        const relevantTasks = taskList.filter(t => {
+            return t.state === "in progress" && new Date(t.date) <= new Date(today.getTime() + days[t.priority]);
+        });
+        
+        const notes = relevantTasks.map(t => {
+            return `Task "${t.decription}" is due by ${t.deadline}.`;
+        });
+        if (relevantTasks.length !== 0) {
+            setNoteList(notes);
+        }
+    };
+
     useEffect(() => {
         fetchTasks();
+        getNotifications();
     }, [userid]);
 
     const tasksByDate = (taskList) => {
@@ -49,6 +74,10 @@ function Calendar(props) {
           acc[date].push(task);
           return acc;
         }, {});
+    };
+
+    const Notifications = () => {
+        setShowNotifications(true);
     };
 
     const getColor = (taskState) => {
@@ -71,6 +100,7 @@ function Calendar(props) {
           Hide();
           const response = await axios.post('/api/tasks', { userid, task, date, state, priority });
           await fetchTasks();
+          getNotifications();
         } catch (error) {
           console.error(error);
           setError(error);
@@ -103,6 +133,7 @@ function Calendar(props) {
             Hide();
             const response = await axios.post('api/projects', {userid, description, priority, findate, projectTasks});
             await fetchTasks();
+            getNotifications();
         } catch (error) {
             console.error(error);
             setError(error);
@@ -112,6 +143,7 @@ function Calendar(props) {
     const Hide = () => {
         setShowTask(false);
         setShowProject(false);
+        setShowNotifications(false);
     
         setTask('');
         setDate('');
@@ -205,7 +237,7 @@ function Calendar(props) {
                             <br></br>
                             <label htmlFor="taskAssignment">User:</label>
                             <input type="text" id={`user-${index}`} name="user" value={t.user} onChange={e => updateProjectTask(index, "user", e.target.value)} ></input>
-                            <input type="checkbox" id={`admin-${index}`} name="admin" checked={t.admin} onChange={(e) => updateProjectTask(index, "admin", e.target.checked)}></input>
+                            <input type="checkbox" id={`admin-${index}`} name="admin" checked={t.admin} onChange={(e) => updateProjectTask(index, "admin", e.target.value)}></input>
                             <label htmlFor="taskAssignment">Admin</label>
                             <br></br>
                             <label htmlFor="deadline">Final Deadline:</label>
@@ -221,9 +253,22 @@ function Calendar(props) {
             </div>
         )}
 
+        {notifications && (
+            <div className='taskWindow'>
+                <h3>Notifications</h3>
+                {noteList.map((note) => (
+                    <div className='noteWindow'>
+                        {note}
+                    </div>
+                ))}
+                <button type="button" className="colorbutton" onClick={Hide}>GoBack</button>
+            </div>
+        )}
+
 
         <nav>
           <div>{username}</div>
+          <button type='button' onClick={Notifications}>Notifications</button>
           <button type="button" onClick={addTask}>New Task</button>
           <button type="button" onClick={addProject}>New Project</button>
           <button type="button" onClick={handleLogout}>LogOut</button>
