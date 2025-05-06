@@ -177,12 +177,9 @@ function Calendar(props) {
                     <h4>Tasks:</h4>
                     <br></br>
                     { projectTasks.map((t, index) => (
-                        <><label htmlFor={`task-${index}`}>Task:</label><input type="text" id={`task-${index}`} name={`task-${index}`} value={t.decription}
-                            onChange={(e) => {
-                                const updated = [...projectTasks];
-                                updated[index].decription = e.target.value;
-                                setProjectTasks(updated);
-                            } }></input><br></br></>
+                        <>
+                        hello
+                        </>
                     )) }
                     <br></br>
 
