@@ -8,7 +8,16 @@
 - Tag: final
 
 # Info k testovaniu:     
-<!-- Uveďte credentials testovacích používateľov, ak sú potrebné na otestovanie Vášho projektu. Uveďte aj akékoľvek iné relevantné informácie k testovaniu. Tieto informácie môžete alternatívne poslať aj e-mailom spolu s odovzdaním finálnej verzie (napr. ak nechcete testovacie credentials zverejňovať). -->
+Na testovanie môžete použiť jeden z nasledujúcich prihlasovacích údajov:
+username: username
+password: 12345
+
+username: tester
+password: heslo
+
+alebo sa zaregistrujte.
+
+Pozn.1: keď testujete mazanie projektov, po zmazaní vás nepresmeruje na ./calendar musíte použiť "GoBack" tlačítko
 
 # Postup, ako rozbehať vývojové prostredie 
 1. Clone the repo: `git clone  https://github.com/nobody280/tvorba_internetovych_aplikacii`
@@ -24,5 +33,4 @@ Implementované sú všetky funcionality z špecifikácie, aj keď dosť minimal
 Celkový vhľad aplikácie mohol beť lepší (hlavne forms pre tasky a projekty). 
 
 # Retrospektíva:
-
-
+Časový plán mohol byť zvládnutý lepšie.
