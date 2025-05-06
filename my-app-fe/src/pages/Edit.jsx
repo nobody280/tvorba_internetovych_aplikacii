@@ -39,7 +39,7 @@ function Edit (props) {
     const deleteTask = async () => {
         try {
             const response = await axios.delete(`/api/tasks/${taskid}`);
-            Back();
+            navigate('/calendar');
         } catch (error) {
             console.error(error);
             setError(error);
@@ -49,7 +49,7 @@ function Edit (props) {
     const deleteProject = async () => {
         try {
             const response = await axios.delete(`/api/projects/${projectid}`);
-            Back();
+            navigate('/calendar');
         } catch (error) {
             console.error(error);
             setError(error);

@@ -75,7 +75,6 @@ function Calendar(props) {
     };
 
     const Notifications = () => {
-        
         setShowNotifications(true);
     };
 
@@ -97,10 +96,8 @@ function Calendar(props) {
     const newTask = async ()  => {
         try {
           Hide();
-          console.log(priority);
           const response = await axios.post('/api/tasks', { task, date, state, priority });
           fetchTasks();
-          getNotifications();
         } catch (error) {
           console.error(error);
           setError(error);
