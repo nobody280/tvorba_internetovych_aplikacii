@@ -84,7 +84,7 @@ function Calendar(props) {
     };
 
     const updateProjectTask = (index, field, value) => {
-        const updatedTasks = [...projectTask];
+        const updatedTasks = [...projectTasks];
         updatedTasks[index] = { ...updatedTasks[index], [field]: value };
         setProjectTask(updatedTasks);
     };
