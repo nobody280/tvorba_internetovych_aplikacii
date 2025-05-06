@@ -5,6 +5,7 @@ import '../App.css'
 
 function Edit (props) {
     const navigate = useNavigate();
+    const { authStatus, setAuthStatus } = props;
     const username = localStorage.getItem('username');
     const userid = localStorage.getItem('userid');
     const task = JSON.parse(localStorage.getItem('task'));
@@ -14,8 +15,15 @@ function Edit (props) {
     const [priority, setPriority] = useState(task.project_priority);
     const [state, setState] = useState(task.state);
     const [date, setDate] = useState(task.deadline.split('T')[0]);
+    const admin = task.admin;
 
     const [error, setError] = useState('');
+
+    useEffect(() => {
+        if (!authStatus) {
+            navigate('/');
+        }
+    }, [authStatus, navigate]);
 
     const Back = () => {
         navigate('/calendar');
@@ -65,8 +73,8 @@ function Edit (props) {
                 <input type="date" id="date" name="date" value={date} onChange={e => setDate(e.target.value) } min={new Date().toISOString().split('T')[0]}></input>
                 <br></br>
                 
-                <label htmlFor="state">Mark as Finished</label>
                 <input type="checkbox" id="state" name="state" checked={state === 'finished'} onChange={(e) => setState(e.target.checked ? 'finished' : 'in progress')}></input>
+                <label htmlFor="state">Mark as Finished</label>
                 <br></br>
             </div>
 

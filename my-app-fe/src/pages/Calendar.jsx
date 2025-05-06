@@ -6,6 +6,7 @@ import '../App.css'
 
 function Calendar(props) {
     const navigate = useNavigate();
+    const { authStatus, setAuthStatus } = props;
     const username = localStorage.getItem('username');
     const userid = localStorage.getItem('userid');
     const [month, setMonth] = useState(new Date().getMonth());
@@ -24,11 +25,17 @@ function Calendar(props) {
     const [date, setDate] = useState('');
     const [findate, setFinDate] = useState('');
     const [priority, setPriority] = useState('low');
-    const [projectTasks, setProjectTask] = useState([{ name: '', user: '', date: '' }]);
+    const [projectTasks, setProjectTask] = useState([{ name: '', user: '', date: '', admin: false }]);
     const [taskList, setTaskList] = useState([]);
     const [selectedTask, setSelectedTask] = useState('');
   
     const [error, setError] = useState('');
+
+    useEffect(() => {
+        if (!authStatus) {
+          navigate('/');
+        }
+      }, [authStatus, navigate]);
 
     const fetchTasks = async () => {
         try {
@@ -80,7 +87,7 @@ function Calendar(props) {
     };
 
     const appendProjectTask = () => {
-        setProjectTask(prev => [...prev, { name: '', user: '', date: '' }]);
+        setProjectTask(prev => [...prev, { name: '', user: '', date: '', admin: false }]);
     };
 
     const updateProjectTask = (index, field, value) => {
@@ -196,6 +203,8 @@ function Calendar(props) {
                             <br></br>
                             <label htmlFor="taskAssignment">User:</label>
                             <input type="text" id={`user-${index}`} name="user" value={t.user} onChange={e => updateProjectTask(index, "user", e.target.value)} ></input>
+                            <input type="checkbox" id={`admin-${index}`} name="admin" checked={t.admin == true} onChange={(e) => updateProjectTask(index, "admin", e.target.value)}></input>
+                            <label htmlFor="taskAssignment">User is Admin</label>
                             <br></br>
                             <label htmlFor="deadline">Final Deadline:</label>
                             <input type="date" id={`date-${index}`} name="date" value={t.date} onChange={e => updateProjectTask(index, "date", e.target.value)} min={new Date().toISOString().split('T')[0]} max = {findate || new Date().toISOString().split('T')[0]}></input>
