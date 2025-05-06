@@ -42,14 +42,14 @@ function Calendar(props) {
 
     const getNotifications = () => {
         const today = new Date();
-            today.setHours(0, 0, 0, 0); 
-            const days = {
-                "low": 2 * 24 * 60 * 60 * 1000,
-                "medium": 4 * 24 * 60 * 60 * 1000,
-                "high": 8 * 24 * 60 * 60 * 1000
-            };
+        today.setHours(0, 0, 0, 0); 
+        const days = {
+            "low": 2 * 24 * 60 * 60 * 1000,
+            "medium": 4 * 24 * 60 * 60 * 1000,
+            "high": 8 * 24 * 60 * 60 * 1000
+        };
 
-            console.log(new Date(today.getTime() + days[t.priority]));
+        console.log(new Date(today.getTime() + days["low"]));
         const relevantTasks = taskList.filter(t => {
             return t.state === "in progress" && new Date(t.date) <= new Date(today.getTime() + days[t.priority]);
         });
