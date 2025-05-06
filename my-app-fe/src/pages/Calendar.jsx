@@ -40,7 +40,6 @@ function Calendar(props) {
 
     useEffect(() => {
         fetchTasks();
-        getNotifications();
     }, [userid]);
 
     const tasksByDate = (taskList) => {
