@@ -6,10 +6,6 @@ const router = express.Router();
 router.get('/', async (req, res) => {
     const projectid = req.query.project;
 
-    if (!userid) {
-        return res.status(400).json({ error: 'User is required' });
-    }
-
     if (!projectid) {
         return res.status(400).json({ error: 'ProjectId is required' });
     }
