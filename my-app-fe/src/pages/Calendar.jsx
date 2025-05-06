@@ -234,7 +234,7 @@ function Calendar(props) {
                             <br></br>
                             <label htmlFor="taskAssignment">User:</label>
                             <input type="text" id={`user-${index}`} name="user" value={t.user} onChange={e => updateProjectTask(index, "user", e.target.value)} ></input>
-                            <input type="checkbox" id={`admin-${index}`} name="admin" checked={t.admin} onChange={(e) => updateProjectTask(index, "admin", e.target.value)}></input>
+                            <input type="checkbox" id={`admin-${index}`} name="admin" checked={t.admin} onChange={(e) => updateProjectTask(index, "admin", e.target.checked)}></input>
                             <label htmlFor="taskAssignment">Admin</label>
                             <br></br>
                             <label htmlFor="deadline">Final Deadline:</label>
