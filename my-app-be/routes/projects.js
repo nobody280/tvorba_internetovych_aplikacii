@@ -35,7 +35,7 @@ router.delete('/:id', async (req, res) => {
         await client.query('DELETE FROM projectmember WHERE project_id = $1;', [projectid]);
         await client.query('DELETE FROM projects WHERE id = $1;', [projectid]);
         console.log("deleted :)");
-        res.status({ message: 'Project deleted' })
+        res.status({ message: 'Project deleted' });
     } catch (error) {
         console.error('Error deleting task:', error);
         res.status(500).json({ error: 'Failed to delete task' });
