@@ -18,9 +18,23 @@ function Edit (props) {
     const [date, setDate] = useState(task.deadline.split('T')[0]);
     const admin = task.admin;
 
-    const allowEdit = admin && (state != 'overdue')
+    const allowEdit = admin && (state !== 'overdue')
 
+    const [taskList, setTaskList] = useState([]);
     const [error, setError] = useState('');
+
+    const fetchProject = async () => {
+        try {
+          const response = await axios.get('/api/projects',{ params: { id: userid, project: projectid }});
+          setTaskList(response.data);
+        } catch (error) {
+          console.error('Error loading tasks:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchProject();
+    }, [userid, projectid]);
 
     const Back = () => {
         navigate('/calendar');
@@ -67,13 +81,82 @@ function Edit (props) {
             <>
             <div className="form">
             <label htmlFor="taskName">Project:{project}</label>
-            {admin && (
-                <button className="logbutton" onClick={deleteProject}>
-                Delete Project
-                </button>
-            )}
             
-            <br></br>
+            {admin && (
+                <>
+                    <button className="logbutton" onClick={deleteProject}>
+                    Delete Project
+                    </button>
+                    <br />
+
+                    {taskList.map((t, index) => (
+                    <div key={t.id}>
+                        <label htmlFor={`taskName-${index}`}>Task {index + 1}:</label>
+                        <input
+                        type="text"
+                        id={`taskName-${index}`}
+                        name="name"
+                        value={t.decription}
+                        onChange={(e) => {
+                            const updated = [...taskList];
+                            updated[index].decription = e.target.value;
+                            setTaskList(updated);
+                        }}
+                        />
+                        <br />
+
+                        <label htmlFor={`priority-${index}`}>Priority:</label>
+                        <select
+                        id={`priority-${index}`}
+                        value={t.priority}
+                        onChange={(e) => {
+                            const updated = [...taskList];
+                            updated[index].priority = e.target.value;
+                            setTaskList(updated);
+                        }}
+                        >
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                        </select>
+                        <br />
+
+                        <label htmlFor={`date-${index}`}>Deadline:</label>
+                        <input
+                        type="date"
+                        id={`date-${index}`}
+                        name="date"
+                        value={t.deadline?.split('T')[0] || ''}
+                        min={new Date().toISOString().split('T')[0]}
+                        onChange={(e) => {
+                            const updated = [...taskList];
+                            updated[index].deadline = e.target.value;
+                            setTaskList(updated);
+                        }}
+                        />
+                        <br />
+
+                        <input
+                        type="checkbox"
+                        id={`state-${index}`}
+                        name="state"
+                        checked={t.state === 'finished'}
+                        onChange={(e) => {
+                            const updated = [...taskList];
+                            updated[index].state = e.target.checked ? 'finished' : 'in progress';
+                            setTaskList(updated);
+                        }}
+                        />
+                        <label htmlFor={`state-${index}`}>Mark as Finished</label>
+                        <br />
+                    </div>
+                    ))}
+                </>
+                )}
+
+            {!admin && (
+                <>
+                <br></br>
                 <label htmlFor="taskName">TaskName:</label>
                 <input type="text" id="name" name="name" value={decription} onChange={e => setTask(e.target.value)}></input>
                 <br></br>
@@ -93,6 +176,9 @@ function Edit (props) {
                 <input type="checkbox" id="state" name="state" checked={state === 'finished'} onChange={(e) => setState(e.target.checked ? 'finished' : 'in progress')}></input>
                 <label htmlFor="state">Mark as Finished</label>
                 <br></br>
+                </>
+            )}
+            
             </div>
 
             <button className="logbutton" onClick={editTask}>
