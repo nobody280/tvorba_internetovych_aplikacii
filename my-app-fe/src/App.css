@@ -123,6 +123,9 @@ h2 {
   border-radius: 50%;
   background-color: aqua;
   width: 10%;
+  width: 10%;
+  display: flex;
+  justify-content: center;
 }
 
 .editWindow {

@@ -5,7 +5,6 @@ import '../App.css'
 
 function Edit (props) {
     const navigate = useNavigate();
-    const { authStatus, setAuthStatus } = props;
     const username = localStorage.getItem('username');
     const userid = localStorage.getItem('userid');
     const task = JSON.parse(localStorage.getItem('task'));
@@ -18,12 +17,6 @@ function Edit (props) {
     const admin = task.admin;
 
     const [error, setError] = useState('');
-
-    useEffect(() => {
-        if (!authStatus) {
-            navigate('/');
-        }
-    }, [authStatus, navigate]);
 
     const Back = () => {
         navigate('/calendar');
@@ -90,6 +83,13 @@ function Edit (props) {
               DeleteTask
             </button>
             </>
+            )}
+
+
+            {!admin && (
+                <>
+                you are not a admin
+                </>
             )}
         </div>
         </>
