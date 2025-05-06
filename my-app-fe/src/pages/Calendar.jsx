@@ -97,8 +97,8 @@ function Calendar(props) {
         try {
           Hide();
           const response = await axios.post('/api/tasks', { userid, task, date, state, priority });
-          fetchTasks();
-          getNotifications();
+          await fetchTasks();
+          await getNotifications();
         } catch (error) {
           console.error(error);
           setError(error);
@@ -130,8 +130,8 @@ function Calendar(props) {
         try {
             Hide();
             const response = await axios.post('api/projects', {userid, description, priority, findate, projectTasks});
-            fetchTasks();
-            getNotifications();
+            await fetchTasks();
+            await getNotifications();
         } catch (error) {
             console.error(error);
             setError(error);
