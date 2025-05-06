@@ -73,7 +73,6 @@ function Calendar(props) {
     };
     
     const addProject = () => {
-        console.log("CLICK");
         setShowProject(true);
     };
     
@@ -149,6 +148,10 @@ function Calendar(props) {
         {projectWindow && (
             <div className='taskWindow'>
                 <h3>Project Info:</h3>
+                <br></br>
+                <div className='form'>
+                    hello
+                </div>
             </div>
         )}
         <nav>
