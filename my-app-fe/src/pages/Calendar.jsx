@@ -6,7 +6,6 @@ import '../App.css'
 
 function Calendar(props) {
     const navigate = useNavigate();
-    const { authStatus, setAuthStatus } = props;
     const username = localStorage.getItem('username');
     const userid = localStorage.getItem('userid');
     const [month, setMonth] = useState(new Date().getMonth());
@@ -28,6 +27,7 @@ function Calendar(props) {
     const [priority, setPriority] = useState('low');
     const [projectTasks, setProjectTask] = useState([{ name: '', user: '', date: '', admin: false }]);
     const [taskList, setTaskList] = useState([]);
+    const [noteList, setNoteList] = useState([]);
   
     const [error, setError] = useState('');
 
@@ -40,8 +40,27 @@ function Calendar(props) {
         }
     };
 
+    const getNotifications = () => {
+        const relevantTasks = taskList.filter(t => {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0); 
+            const days = {
+                "low": 1 * 24 * 60 * 60 * 1000,
+                "medium": 3 * 24 * 60 * 60 * 1000,
+                "high": 7 * 24 * 60 * 60 * 1000
+            };
+
+            return t.state === "in progress" && new Date(t.date) <= today+days[t.priority];
+        });
+        const notes = relevantTasks.map(t => {
+            return `Task "${t.decription}" is due by ${t.deadline}.`;
+        });
+        setNoteList(notes);
+    };
+
     useEffect(() => {
         fetchTasks();
+        getNotifications();
     }, [userid]);
 
     const tasksByDate = (taskList) => {
@@ -231,9 +250,12 @@ function Calendar(props) {
 
         {notifications && (
             <div className='taskwindow'>
-                <div className='noteWindow'>
-                    hi :P
-                </div>
+                {noteList.map((note) => (
+                    <div className='noteWindow'>
+                        <h4>Upcoming deadline</h4>
+                        {note}
+                    </div>
+                ))}
             </div>
         )}
 

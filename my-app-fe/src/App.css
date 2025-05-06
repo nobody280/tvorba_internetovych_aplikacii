@@ -135,11 +135,11 @@ h2 {
   left: 0;
   z-index: 2;
   background-color: lightgray;
+  overflow: scroll;
 }
 
 .noteWindow {
   width: 100%;
-  z-index: 2;
   background-color: lightgray;
   border: "solid" black 1px;
   padding: 2%;
