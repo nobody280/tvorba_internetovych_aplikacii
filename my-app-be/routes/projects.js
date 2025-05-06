@@ -33,9 +33,10 @@ router.post('/', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
     const projectid = req.params.id;
+
     try {
         await client.query('DELETE FROM tasks WHERE project = $1;', [projectid]);
-        await client.query('DELETE FROM projectmember WHERE project = $1;', [projectid]);
+        await client.query('DELETE FROM projectmember WHERE project_id = $1;', [projectid]);
         await client.query('DELETE FROM projects WHERE id = $1;', [projectid]);
         console.log("deleted :)");
     } catch (error) {

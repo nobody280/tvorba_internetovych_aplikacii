@@ -26,6 +26,7 @@ router.post('/', async (req, res) => {
   }
 
   try {
+    console.log('im tryin');
     const project = await client.query('INSERT INTO projects (name, state, final_deadline, project_priority) VALUES ($1, $2, $3, $4) RETURNING *;', [task, state, date, priority]);
     const projectId = project.rows[0].id;
     const taskResult = await client.query('INSERT INTO tasks (decription, state, deadline, project) VALUES ($1, $2, $3, $4) RETURNING *;', [task, state, date, projectId]);
@@ -60,7 +61,6 @@ router.put('/:id', async (req,res) => {
 router.delete('/:id', async (req, res) => {
   const taskid = req.params.id;
   try {
-    console.log(taskid);
     const task = await client.query('DELETE FROM tasks WHERE id = $1 RETURNING *;', [taskid]);
     const projectid = task.rows[0].project;
     await client.query('DELETE FROM projects WHERE id = $1;', [projectid]);
