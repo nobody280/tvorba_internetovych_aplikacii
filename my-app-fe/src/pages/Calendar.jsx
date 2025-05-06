@@ -73,6 +73,7 @@ function Calendar(props) {
     };
     
     const addProject = () => {
+        console.log("CLICK");
         setShowProject(true);
     };
     
