@@ -31,12 +31,6 @@ function Calendar(props) {
   
     const [error, setError] = useState('');
 
-    useEffect(() => {
-        if (!authStatus) {
-          navigate('/');
-        }
-      }, [authStatus, navigate]);
-
     const fetchTasks = async () => {
         try {
           const response = await axios.get('/api/tasks',{ params: { id: userid }});
@@ -57,6 +51,17 @@ function Calendar(props) {
           acc[date].push(task);
           return acc;
         }, {});
+    };
+
+    const getColor = (taskState) => {
+        switch (state) {
+            case 'overdue':
+                return 'red';
+            case 'finished':
+                return 'green';
+            default:
+                return 'aqua';
+        }
     };
     
     const addTask = () => {
@@ -245,7 +250,7 @@ function Calendar(props) {
                     <div className="daybox" key={index}>
                     {dayOfMonth+1}.
                         {tasksForThisDay.map((task, taskIndex) => (
-                         <button className="taskbutton" onClick={() => handleEditTask(task)} key={task.id}>{task.decription}</button>
+                         <button className="taskbutton" style={{backgroundColor: getColor(task.state)}} onClick={() => handleEditTask(task)} key={task.id}>{task.decription}</button>
                         ))}
                     </div>
                 );

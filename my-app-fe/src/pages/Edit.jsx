@@ -56,6 +56,7 @@ function Edit (props) {
             <>
             <div className="form">
             <label htmlFor="taskName">Project:{project}</label>
+            <br></br>
                 <label htmlFor="taskName">TaskName:</label>
                 <input type="text" id="name" name="name" value={decription} onChange={e => setTask(e.target.value)}></input>
                 <br></br>
@@ -94,6 +95,7 @@ function Edit (props) {
                 <>
                 <div className="form">
                     <label htmlFor="taskName">Project: {project}</label>
+                    <br></br>
                     <label htmlFor="taskName">TaskName: {decription}</label>
                     <br></br>
                     <label htmlFor="priority">Priority: {priority}</label>
