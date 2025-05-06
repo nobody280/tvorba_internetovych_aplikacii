@@ -56,6 +56,8 @@ function Edit (props) {
                 <h3>Task Info</h3>
             </div>
 
+            {admin && (
+            <>
             <div className="form">
                 <label htmlFor="taskName">TaskName:</label>
                 <input type="text" id="name" name="name" value={decription} onChange={e => setTask(e.target.value)}></input>
@@ -87,6 +89,8 @@ function Edit (props) {
             <button className="logbutton" onClick={deleteTask}>
               DeleteTask
             </button>
+            </>
+            )}
         </div>
         </>
     );

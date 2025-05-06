@@ -25,7 +25,6 @@ function Register (props) {
             return;
         }
 
-        console.log("call register");
         register( username, first_name, last_name, password )
           .then((response) => {
               props.setAuthStatus(true);
