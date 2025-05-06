@@ -41,8 +41,7 @@ function Calendar(props) {
     };
 
     const getNotifications = () => {
-        const relevantTasks = taskList.filter(t => {
-            const today = new Date();
+        const today = new Date();
             today.setHours(0, 0, 0, 0); 
             const days = {
                 "low": 2 * 24 * 60 * 60 * 1000,
@@ -51,6 +50,7 @@ function Calendar(props) {
             };
 
             console.log(new Date(today.getTime() + days[t.priority]));
+        const relevantTasks = taskList.filter(t => {
             return t.state === "in progress" && new Date(t.date) <= new Date(today.getTime() + days[t.priority]);
         });
         
