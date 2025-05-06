@@ -45,6 +45,15 @@ function Edit (props) {
         }
     };
 
+    const deleteProject = async () => {
+        try {
+            Back();
+        } catch (error) {
+            console.error(error);
+            setError(error);
+        }
+    };
+
     return (
         <>
         <div className='app'>
@@ -56,6 +65,12 @@ function Edit (props) {
             <>
             <div className="form">
             <label htmlFor="taskName">Project:{project}</label>
+            {admin && (
+                <button className="logbutton" onClick={deleteProject}>
+                Delete Project
+                </button>
+            )}
+            
             <br></br>
                 <label htmlFor="taskName">TaskName:</label>
                 <input type="text" id="name" name="name" value={decription} onChange={e => setTask(e.target.value)}></input>

@@ -55,7 +55,9 @@ function Calendar(props) {
         const notes = relevantTasks.map(t => {
             return `Task "${t.decription}" is due by ${t.deadline}.`;
         });
-        setNoteList(notes);
+        if (relevantTasks.length === 0) {
+            setNoteList(notes);
+        }
     };
 
     useEffect(() => {
