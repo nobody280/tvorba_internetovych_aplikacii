@@ -117,21 +117,8 @@ function Calendar(props) {
     
     return (
         <>
-        <nav>
-          <div>{username}</div>
-          <button type="button" onClick={addTask}>New Task</button>
-          <button type="button" onClick={addProject}>New Project</button>
-          <button type="button" onClick={handleLogout}>LogOut</button>
-        </nav>
 
-        <div className='calendar'>
-            <div className="month">
-                <button type="button" onClick={oneLess}>&laquo;</button>
-                <h2>{new Date(year, month).toLocaleString("default", { month: "long" })} {year}</h2>
-                <button type="button" onClick={oneMore}>&raquo;</button>
-            </div>
-
-            {taskWindow1 && (
+{taskWindow1 && (
                 <div className="taskWindow">
                     <h3>Task Info:</h3>
                     <br></br>
@@ -155,6 +142,21 @@ function Calendar(props) {
                     </div>
                 </div>
             )}
+
+        
+        <nav>
+          <div>{username}</div>
+          <button type="button" onClick={addTask}>New Task</button>
+          <button type="button" onClick={addProject}>New Project</button>
+          <button type="button" onClick={handleLogout}>LogOut</button>
+        </nav>
+
+        <div className='calendar'>
+            <div className="month">
+                <button type="button" onClick={oneLess}>&laquo;</button>
+                <h2>{new Date(year, month).toLocaleString("default", { month: "long" })} {year}</h2>
+                <button type="button" onClick={oneMore}>&raquo;</button>
+            </div>
 
             <div className="monthbox">
             {items.map((_, index) => {
