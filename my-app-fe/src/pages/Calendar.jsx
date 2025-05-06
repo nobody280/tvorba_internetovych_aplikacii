@@ -137,7 +137,6 @@ function Calendar(props) {
         {taskWindow1 && (
                 <div className="taskWindow">
                     <h3>Task Info:</h3>
-                    <br></br>
                     <div className="form">
                     <label htmlFor="taskName">TaskName:</label>
                     <input type="text" id="name" name="name" value={task} onChange={e => setTask(e.target.value)} ></input>
@@ -162,7 +161,6 @@ function Calendar(props) {
         {projectWindow && (
             <div className='taskWindow'>
                 <h3>Project Info:</h3>
-                <br></br>
                 <div className='form'>
                     <label htmlFor="projectName">ProjectName:</label>
                     <input type="text" id="name" name="name" value={description} onChange={e => setDesc(e.target.value)} ></input>
@@ -182,15 +180,14 @@ function Calendar(props) {
                     {projectTasks.map((t, index) => (
                         <div>
                             <h4>Task{index+1}</h4>
-                            <br></br>
                             <label htmlFor="taskName">Name:</label>
-                            <input type="text" id='name' name="name" value={t.name} onChange={e => updateProjectTask(index, "name", e.target.value)} ></input>
+                            <input type="text" id={`name-${index}`} name="name" value={t.name} onChange={e => updateProjectTask(index, "name", e.target.value)} ></input>
                             <br></br>
                             <label htmlFor="taskAssignment">User:</label>
-                            <input type="text" id="user" name="user" value={t.user} onChange={e => updateProjectTask(index, "user", e.target.value)} ></input>
+                            <input type="text" id={`user-${index}`} name="user" value={t.user} onChange={e => updateProjectTask(index, "user", e.target.value)} ></input>
                             <br></br>
                             <label htmlFor="deadline">Final Deadline:</label>
-                            <input type="date" id="date" name="date" value={t.date} onChange={e => updateProjectTask(index, "date", e.target.value)} min={new Date().toISOString().split('T')[0]} max = {findate || new Date().toISOString().split('T')[0]}></input>
+                            <input type="date" id={`date-${index}`} name="date" value={t.date} onChange={e => updateProjectTask(index, "date", e.target.value)} min={new Date().toISOString().split('T')[0]} max = {findate || new Date().toISOString().split('T')[0]}></input>
                             
                         </div>
                     ))}
