@@ -26,7 +26,6 @@ router.post('/', async (req, res) => {
   }
 
   try {
-    console.log('im tryin');
     const project = await client.query('INSERT INTO projects (name, state, final_deadline, project_priority) VALUES ($1, $2, $3, $4) RETURNING *;', [task, state, date, priority]);
     const projectId = project.rows[0].id;
     const taskResult = await client.query('INSERT INTO tasks (decription, state, deadline, project) VALUES ($1, $2, $3, $4) RETURNING *;', [task, state, date, projectId]);
@@ -35,6 +34,7 @@ router.post('/', async (req, res) => {
 
     const newTask = taskResult.rows[0];
     res.status(201).json(newTask);
+    console.log("i did it");
   } catch (error) {
     console.error('Error inserting task:', error);
     res.status(500).json({ error: 'Error inserting task' });
