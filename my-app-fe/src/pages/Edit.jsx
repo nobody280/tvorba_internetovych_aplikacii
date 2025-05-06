@@ -47,6 +47,7 @@ function Edit (props) {
 
     const deleteProject = async () => {
         try {
+            const response = await axios.delete(`/api/projects/${project}`);
             Back();
         } catch (error) {
             console.error(error);

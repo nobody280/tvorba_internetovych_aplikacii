@@ -139,9 +139,9 @@ h2 {
 }
 
 .noteWindow {
-  width: 100%;
+  width: 90%;
   background-color: lightgray;
-  border: "solid" black 1px;
+  border: "solid" black 2px;
   padding: 2%;
   z-index: inherit;
 }
