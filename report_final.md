@@ -20,7 +20,8 @@
 7. Run frontend: `npm run dev`
 
 # Stav implementácie:
-
+Implementované sú všetky funcionality z špecifikácie, aj keď dosť minimalisticky. 
+Celkový vhľad aplikácie mohol beť lepší (hlavne forms pre tasky a projekty). 
 
 # Retrospektíva:
 
