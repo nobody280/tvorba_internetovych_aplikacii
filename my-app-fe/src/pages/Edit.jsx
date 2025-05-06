@@ -78,13 +78,13 @@ function Edit (props) {
             </div>
 
             <button className="logbutton" onClick={editTask}>
-              SaveChanges
+              Save
             </button>
             <button className="logbutton" onClick={Back}>
-              DiscardChanges
+              GoBack
             </button>
             <button className="logbutton" onClick={deleteTask}>
-              DeleteTask
+              Delete
             </button>
             </>
             )}
@@ -92,7 +92,24 @@ function Edit (props) {
 
             {!allowEdit && (
                 <>
-                
+                <div className="form">
+                    <label htmlFor="taskName">Project: {project}</label>
+                    <label htmlFor="taskName">TaskName: {decription}</label>
+                    <br></br>
+                    <label htmlFor="priority">Priority: {priority}</label>
+                    <br></br>
+                    <label htmlFor="date">Deadline: {date}</label>
+                    <input type="checkbox" id="state" name="state" checked={state === 'finished'} onChange={(e) => setState(e.target.checked ? 'finished' : 'in progress')}></input>
+                    <label htmlFor="state">Mark as Finished</label>
+                    <br></br>
+                </div>
+
+                <button className="logbutton" onClick={editTask}>
+                Save
+                </button>
+                <button className="logbutton" onClick={Back}>
+                GoBack
+                </button>
                 </>
             )}
         </div>
