@@ -112,7 +112,6 @@ function Calendar(props) {
     const Hide = () => {
         setShowTask(false);
         setShowProject(false);
-        setShowNotifications(false);
     
         setTask('');
         setDate('');
