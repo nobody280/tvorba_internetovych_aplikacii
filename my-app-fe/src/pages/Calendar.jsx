@@ -80,7 +80,7 @@ function Calendar(props) {
     };
 
     const appendProjectTask = () => {
-        setProjectTasks(prev => [...prev, { name: '', user: '', date: '' }]);
+        setProjectTask(prev => [...prev, { name: '', user: '', date: '' }]);
     };
 
     const updateProjectTask = (index, field, value) => {
