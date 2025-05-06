@@ -235,7 +235,7 @@ function Edit (props) {
                     <>
                     <label htmlFor="taskName">Task {index+1}: {t.decription}</label>
                     <br></br>
-                    <label htmlFor="date">Deadline: {t.deadline.toISOString().split('T')[0]}</label>
+                    <label htmlFor="date">Deadline: {t.deadline.split('T')[0]}</label>
                     <label htmlFor="state">{t.state}</label>
                     <br></br>
                     </>
