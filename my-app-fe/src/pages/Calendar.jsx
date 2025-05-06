@@ -14,16 +14,16 @@ function Calendar(props) {
     const items = Array(daysInMonth).fill(null);
 
     const [taskWindow1, setShowTask] = useState(false);
-    const [projectWindow, setShowProject] = useState(false);
+    const [taskWindow2, setShowProject] = useState(false);
 
     const [project, setProject] = useState('');
     const [task, setTask] = useState('');
     const [state, setState] = useState('in progress');
+    const [description, setDesc] = useState('');
     const [date, setDate] = useState('');
     const [priority, setPriority] = useState('low');
-    const [user, setUser] = useState('');
-    const [projectTasks, setProjectTasks] = useState([]);
-    const [taskList, setTaskList] = useState([ {}, {}, {} ]);
+    const [taskList, setTaskList] = useState([]);
+    const [selectedTask, setSelectedTask] = useState('');
   
     const [error, setError] = useState('');
 
@@ -72,13 +72,7 @@ function Calendar(props) {
         navigate('/edit');
     };
     
-    const addProject = () => {
-        setShowProject(true);
-    };
-
-    const newProject = async ()  => {};
-
-    const handleEditProject = async (project) => {};
+    const addProject = () => {};
     
     const Hide = () => {
         setShowTask(false);
@@ -130,7 +124,14 @@ function Calendar(props) {
           <button type="button" onClick={handleLogout}>LogOut</button>
         </nav>
 
-        {taskWindow1 && (
+        <div className='calendar'>
+            <div className="month">
+                <button type="button" onClick={oneLess}>&laquo;</button>
+                <h2>{new Date(year, month).toLocaleString("default", { month: "long" })} {year}</h2>
+                <button type="button" onClick={oneMore}>&raquo;</button>
+            </div>
+
+            {taskWindow1 && (
                 <div className="taskWindow">
                     <h3>Task Info:</h3>
                     <br></br>
@@ -153,20 +154,7 @@ function Calendar(props) {
                     <button type="button" className="colorbutton" onClick={Hide}>Discard Task</button>
                     </div>
                 </div>
-        )}
-        
-        {projectWindow && (
-            <div className='taskWindow'>
-                <h3>Project Info</h3>
-            </div>
-        )}
-
-        <div className='calendar'>
-            <div className="month">
-                <button type="button" onClick={oneLess}>&laquo;</button>
-                <h2>{new Date(year, month).toLocaleString("default", { month: "long" })} {year}</h2>
-                <button type="button" onClick={oneMore}>&raquo;</button>
-            </div>
+            )}
 
             <div className="monthbox">
             {items.map((_, index) => {
