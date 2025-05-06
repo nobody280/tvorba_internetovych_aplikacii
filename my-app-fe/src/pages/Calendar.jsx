@@ -156,7 +156,7 @@ function Calendar(props) {
                 <br></br>
                 <div className='form'>
                 <label htmlFor="projectName">ProjectName:</label>
-                    <input type="text" id="name" name="name" value={decription} onChange={e => setDesc(e.target.value)} ></input>
+                    <input type="text" id="name" name="name" value={description} onChange={e => setDesc(e.target.value)} ></input>
                     <br></br>
                     <label htmlFor="priority">Priority:</label>
                     <select id='priority' value={priority} onChange={(e) => setPriority(e.target.value)}>
