@@ -100,6 +100,7 @@ function Calendar(props) {
           console.log(priority);
           const response = await axios.post('/api/tasks', { task, date, state, priority });
           fetchTasks();
+          getNotifications();
         } catch (error) {
           console.error(error);
           setError(error);
@@ -132,6 +133,7 @@ function Calendar(props) {
             Hide();
             const response = await axios.post('api/projects', {userid, description, priority, findate, projectTasks});
             fetchTasks();
+            getNotifications();
         } catch (error) {
             console.error(error);
             setError(error);

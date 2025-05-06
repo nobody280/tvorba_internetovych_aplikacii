@@ -10,6 +10,7 @@ function Edit (props) {
     const task = JSON.parse(localStorage.getItem('task'));
 
     const taskid = task.id;
+    const projectid = task.project;
     const project = task.name;
     const [decription, setTask] = useState(task.decription);
     const [priority, setPriority] = useState(task.project_priority);
@@ -47,7 +48,7 @@ function Edit (props) {
 
     const deleteProject = async () => {
         try {
-            const response = await axios.delete(`/api/projects/${project}`);
+            const response = await axios.delete(`/api/projects/${projectid}`);
             Back();
         } catch (error) {
             console.error(error);
