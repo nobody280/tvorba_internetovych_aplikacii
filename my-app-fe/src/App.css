@@ -118,6 +118,8 @@ h2 {
 }
 
 .plusbutton {
+  position: fixed;
+  align-items: center;
   border-radius: 50%;
   background-color: aqua;
   right: 0;
