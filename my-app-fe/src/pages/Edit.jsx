@@ -42,7 +42,20 @@ function Edit (props) {
 
     const editTask = async () => {
         try {
-            const response = await axios.put(`/api/tasks/${taskid}`, { decription, priority, state, date });
+            if (admin) {
+                const updatePromises = taskList.map(item => 
+                    axios.put(`/api/tasks/${item.id}`, {
+                      decription: item.decription,
+                      priority: item.priority,
+                      state: item.state,
+                      date: item.deadline,
+                    })
+                  );
+                await Promise.all(updatePromises);
+                alert('All tasks saved successfully!');
+            } else {
+                const response = await axios.put(`/api/tasks/${taskid}`, { decription, priority, state, date });
+            }
             navigate('/calendar');
           } catch (error) {
             console.error(error);
@@ -156,6 +169,7 @@ function Edit (props) {
 
             {!admin && (
                 <>
+                <br></br>
                 <br></br>
                 <label htmlFor="taskName">TaskName:</label>
                 <input type="text" id="name" name="name" value={decription} onChange={e => setTask(e.target.value)}></input>
