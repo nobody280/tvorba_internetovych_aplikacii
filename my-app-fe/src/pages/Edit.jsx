@@ -166,40 +166,6 @@ function Edit (props) {
                     ))}
                 </>
                 )}
-
-            {!admin && (
-                <>
-                <br></br>
-                <label htmlFor="taskName">YourTask:</label>
-                <input type="text" id="name" name="name" value={decription} onChange={e => setTask(e.target.value)}></input>
-                <br></br>
-
-                <label htmlFor="priority">Priority:</label>
-                <select id='priority' value={priority} onChange={(e) => setPriority(e.target.value)}>
-                    <option value="low">Low</option>
-                    <option value="medium">Medium</option>
-                    <option value="high">High</option>
-                </select>
-                <br></br>
-
-                <label htmlFor="date">Deadline:</label>
-                <input type="date" id="date" name="date" value={date} onChange={e => setDate(e.target.value) } min={new Date().toISOString().split('T')[0]}></input>
-                <br></br>
-                
-                <input type="checkbox" id="state" name="state" checked={state === 'finished'} onChange={(e) => setState(e.target.checked ? 'finished' : 'in progress')}></input>
-                <label htmlFor="state">Mark as Finished</label>
-                <br></br>
-                {taskList.map((t,index) => (
-                    <>
-                    <label htmlFor="taskName">Task {index+1}: {t.decription}</label>
-                    <br></br>
-                    <label htmlFor="date">Deadline: {t.deadline}</label>
-                    <label htmlFor="state">{t.state}</label>
-                    <br></br>
-                    </>
-                ))}
-                </>
-            )}
             
             </div>
 
